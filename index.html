@@ -19,7 +19,7 @@
   --sol:#ffd60a;--solF:rgba(255,214,10,.1);
   --lif:#06d6a0;--lifF:rgba(6,214,160,.1);
   --star:#7b2fff;--starF:rgba(123,47,255,.11);
-  --tx1:#c8dfff;--tx2:#4a6580;--tx3:#1e3348;
+  --tx1:#d8ecff;--tx2:#8aabcc;--tx3:#3a5a78;
   --r:12px;--rL:16px;
   --fH:'Orbitron',monospace;--fB:'Inter',system-ui,sans-serif;--fM:'Space Mono',monospace;
 }
@@ -219,9 +219,36 @@ footer a{color:var(--arc);text-decoration:none;}
 @keyframes fI{from{opacity:0;}to{opacity:1;}}
 @media(max-width:900px){.two{grid-template-columns:1fr;}.tni-lbl{display:none;}.tni-item{min-width:34px;padding:12px 3px 14px;}}
 @media(max-width:600px){.kg{grid-template-columns:repeat(2,1fr);}.hbtns{flex-direction:column;align-items:center;}.hmets{flex-wrap:wrap;}.hm{border-right:none;border-bottom:1px solid var(--rim2);padding:12px 18px;}}
+
+/* ── LANG TOGGLE ── */
+.lang-toggle{position:fixed;top:14px;right:1.5rem;z-index:600;display:flex;align-items:center;border-radius:100px;background:rgba(0,5,8,.75);border:1px solid rgba(0,212,255,.22);backdrop-filter:blur(16px);padding:3px;transition:all .3s;}
+.lang-btn{padding:5px 14px;border-radius:100px;font-family:var(--fM);font-size:.6rem;letter-spacing:.1em;font-weight:700;color:var(--tx3);transition:all .25s;border:none;background:none;cursor:pointer;text-transform:uppercase;}
+.lang-btn.active{background:rgba(0,212,255,.15);color:var(--arc);}
+.lang-btn:hover:not(.active){color:var(--tx1);}
+/* ── CODE TOGGLE ── */
+.code-wrap{margin-top:.75rem;}
+.ctbtn{display:inline-flex;align-items:center;gap:6px;background:rgba(123,47,255,.08);border:1px solid rgba(123,47,255,.22);color:#a78bfa;padding:4px 12px;border-radius:3px;font-family:var(--fM);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .22s;}
+.ctbtn:hover{background:rgba(123,47,255,.15);border-color:rgba(123,47,255,.45);}
+.cblock{display:none;margin-top:.65rem;background:rgba(2,8,20,.9);border:1px solid rgba(123,47,255,.18);border-radius:8px;padding:1rem 1.1rem;overflow-x:auto;}
+.cblock.show{display:block;}
+.cblock pre{font-family:var(--fM);font-size:.72rem;line-height:1.72;color:#c4b5fd;white-space:pre-wrap;word-break:break-all;}
+.kw{color:#f72585;}.fn{color:#00d4ff;}.st{color:#ffd60a;}.cm{color:#5a7a9a;font-style:italic;}.nb{color:#06d6a0;}
+/* ── AUTHOR ── */
+.author-bar{text-align:center;padding:2rem 2rem 2.5rem;border-top:1px solid var(--rim2);max-width:1260px;margin:0 auto;}
+.author-bar .albl{font-family:var(--fM);font-size:.6rem;color:var(--tx3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem;}
+.author-name{font-family:var(--fH);font-size:.95rem;font-weight:700;color:var(--tx1);letter-spacing:.04em;display:block;margin-bottom:.7rem;}
+.author-li{display:inline-flex;align-items:center;gap:7px;padding:7px 16px;background:rgba(0,119,181,.1);border:1px solid rgba(0,119,181,.28);border-radius:3px;color:#4dabf7;font-family:var(--fM);font-size:.62rem;letter-spacing:.06em;text-decoration:none;transition:all .25s;}
+.author-li:hover{background:rgba(0,119,181,.2);border-color:rgba(0,119,181,.5);transform:translateY(-2px);}
 </style>
 </head>
 <body>
+
+<!-- LANG TOGGLE -->
+<div class="lang-toggle" id="langToggle">
+  <button class="lang-btn active" onclick="setLang('es',this)" id="btnES">ES</button>
+  <button class="lang-btn" onclick="setLang('en',this)" id="btnEN">EN</button>
+  <button class="lang-btn" onclick="setLang('zh',this)" id="btnZH">中文</button>
+</div>
 <canvas id="bgc"></canvas>
 <div class="nbl"></div>
 <div class="gl"></div>
@@ -410,7 +437,7 @@ footer a{color:var(--arc);text-decoration:none;}
 <!-- CONCLUSIÓN -->
 <section id="conc" class="sec reveal" style="text-align:center">
   <div class="chip d" style="display:inline-flex"><i class="fas fa-flag-checkered"></i> Conclusión</div>
-  <div style="font-family:var(--fH);font-size:clamp(1.5rem,3.2vw,2.3rem);font-weight:700;line-height:1.18;letter-spacing:-.01em;margin:1.2rem auto 1rem;max-width:760px;">"El universo tiene <span style="color:var(--arc)">5,523 razones</span><br>para seguir mirando al cielo"</div>
+  <div style="font-family:var(--fH);font-size:clamp(1.5rem,3.2vw,2.3rem);font-weight:700;line-height:1.18;letter-spacing:-.01em;margin:1.2rem auto 1rem;max-width:760px;"><span class="conc-quote-inner">"El universo tiene <span style="color:var(--arc)">5,523 razones</span><br>para seguir mirando al cielo"</span></div>
   <p style="font-size:.93rem;color:var(--tx2);margin-bottom:2rem;max-width:440px;margin-left:auto;margin-right:auto;font-weight:300;">Cada exoplaneta es una historia de ingeniería, física y perseverancia humana. Algunos son prometedores. Ninguno es idéntico a la Tierra. Todavía.</p>
   <div class="hbtns" style="justify-content:center">
     <a href="#hero" class="btnP"><i class="fas fa-arrow-up"></i> Volver al inicio</a>
@@ -425,6 +452,15 @@ footer a{color:var(--arc);text-decoration:none;}
 </section>
 </main>
 <button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+<!-- AUTHOR -->
+<div class="author-bar">
+  <div class="albl">Análisis elaborado por</div>
+  <span class="author-name">Alejandro Lozano Pastor</span>
+  <a href="https://www.linkedin.com/in/alejandro-lozano-pastor" target="_blank" class="author-li">
+    <i class="fab fa-linkedin"></i> Alejandro Lozano Pastor | LinkedIn
+  </a>
+</div>
 <footer>
   <p>Datos: <a href="https://exoplanetarchive.ipac.caltech.edu/" target="_blank">NASA Exoplanet Archive</a> · ESI: <a href="https://phl.upr.edu/projects/earth-similarity-index-esi" target="_blank">PHL-UPR Arecibo</a> · PS_2023.08.02</p>
   <div class="ftl"><a href="https://exoplanets.nasa.gov/" target="_blank"><i class="fas fa-rocket"></i> NASA Exoplanets</a><a href="https://colab.research.google.com/" target="_blank"><i class="fab fa-google"></i> Colab</a></div>
@@ -648,13 +684,27 @@ function rESIMass(){
 function setEM(v,btn){emS=v;btn.parentElement.querySelectorAll('.cb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');rESIMass();}
 
 function rKepler(){
-  const pls=['Sol (ref.)','Kepler-452b','Teegarden Star','TOI-700 host','Proxima Cen.','TRAPPIST-1'];
-  const teffs=[5778,5755,3374,3480,3042,2559];
-  const cols=teffs.map(t=>Math.abs(t-5778)<50?'#06d6a0':Math.abs(t-5778)<400?'#ffd60a':'#f72585');
+  const pls=['Sol','Kepler-452b','Kepler-442b host','TOI-700 host','Teegarden Star','Proxima Cen.','TRAPPIST-1'];
+  const teffs=[5778,5757,5765,3480,3374,3042,2559];
+  const cols=teffs.map(t=>Math.abs(t-5778)<30?'#06d6a0':Math.abs(t-5778)<200?'#ffd60a':Math.abs(t-5778)<800?'#f8961e':'#f72585');
+  const diff=teffs.map(t=>(t-5778>0?'+':'')+(t-5778)+' K');
   Plotly.newPlot('keplerChart',[
-    {type:'bar',x:pls,y:teffs,marker:{color:cols,opacity:.78},hovertemplate:'<b>%{x}</b><br>Teff: %{y} K<extra></extra>',text:teffs.map(t=>t+' K'),textposition:'auto',textfont:{color:'#c8dfff',size:10}},
-    {type:'scatter',x:pls,y:Array(pls.length).fill(5778),mode:'lines',line:{color:'rgba(255,89,94,.45)',dash:'dash',width:1.5},name:'Sol 5778 K',hoverinfo:'none'}
-  ],{...T,xaxis:{...T.xaxis,title:'Estrella anfitriona'},yaxis:{...T.yaxis,title:'Temperatura efectiva (K)'},legend:{...T.legend,orientation:'h',x:.5,y:1.05,xanchor:'center'}},CFG);
+    {type:'bar',x:pls,y:teffs,
+     marker:{color:cols,opacity:.82,line:{color:'rgba(255,255,255,.06)',width:.5}},
+     hovertemplate:'<b>%{x}</b><br>Teff: %{y} K (%{customdata})<extra></extra>',
+     customdata:diff,
+     text:teffs.map(t=>t+' K'),textposition:'outside',
+     textfont:{color:'#8aabcc',size:10}},
+    {type:'scatter',x:pls,y:Array(pls.length).fill(5778),mode:'lines',
+     line:{color:'rgba(255,89,94,.5)',dash:'dash',width:1.5},
+     name:'Sol (5778 K)',hoverinfo:'none'}
+  ],{...T,
+    margin:{t:30,b:50,l:60,r:20},
+    xaxis:{...T.xaxis,title:'Estrella anfitriona'},
+    yaxis:{...T.yaxis,title:'Temperatura efectiva (K)',range:[2000,6200]},
+    legend:{...T.legend,orientation:'h',x:.5,y:1.08,xanchor:'center'},
+    annotations:[{x:'Sol',y:5778,text:'Referencia',showarrow:true,arrowhead:2,arrowcolor:'rgba(255,89,94,.5)',ay:-30,font:{size:9,color:'#ff595e'}}]
+  },CFG);
 }
 
 /* ── INIT ── */
@@ -663,6 +713,201 @@ window.addEventListener('load',()=>setTimeout(()=>{
   rTime();rAitoff();rDist();rESIRad();rESIMass();rKepler();
   document.querySelectorAll('.esibf').forEach(b=>{b.style.width=b.dataset.w;});
 },250));
+
+/* ── LANG ── */
+const TEXTS={
+  es:{
+    'hero-stat':'NASA Exoplanet Archive · Octubre 2023 · 5,523 registros',
+    'hero-title':'MÁS ALLÁ DEL SOL',
+    'hero-l2':'5,523 Mundos Confirmados',
+    'hero-sub':'Análisis exploratorio del catálogo de exoplanetas de la NASA. <strong>Métodos de detección</strong>, observatorios, posiciones galácticas y candidatos habitables bajo la lupa de los datos.',
+    'btn-explore':'Explorar hallazgos','btn-meth':'Metodología',
+    'scroll-lbl':'scroll',
+    'sec-resumen':'Resumen Ejecutivo','h-resumen':'El universo en <span class="a">números</span>',
+    'sec-metodos':'Métodos de Detección','h-metodos':'¿Cómo encontramos <span class="n">otros mundos</span>?',
+    'sec-facilidades':'Instalaciones','h-facilidades':'Los <span class="s">cazadores</span> de exoplanetas',
+    'sec-tiempo':'Evolución Temporal','h-tiempo':'Una historia de <span class="a">descubrimientos</span>',
+    'sec-espacio':'Posición Espacial','h-espacio':'Cartografía del <span class="p">cosmos</span>',
+    'sec-esi':'Earth Similarity Index','h-esi':'¿Hay otro <span class="l">planeta Tierra</span>?',
+    'sec-historia':'Narrativa del Análisis','h-historia':'La <span class="a">historia</span> del EDA',
+    'sec-curiosidades':'Curiosidades','h-curiosidades':'Lo que el universo nos <span class="n">sorprendió</span> diciendo',
+    'sec-metodologia':'Metodología','h-metodologia':'Detrás del <span class="a">análisis</span>',
+    'conc-quote':'<span class="conc-quote-inner">"El universo tiene <span style="color:var(--arc)">5,523 razones</span><br>para seguir mirando al cielo"</span>',
+    'author-lbl':'Análisis elaborado por'
+  },
+
+  zh:{
+    'hero-stat':'NASA系外行星档案 · 2023年10月 · 5,523条记录',
+    'hero-title':'太阳系之外',
+    'hero-l2':'5,523颗已确认的世界',
+    'hero-sub':'对NASA系外行星目录的探索性数据分析。<strong>探测方法</strong>、观测站、银河系坐标及宜居候选行星的数据解析。',
+    'btn-explore':'探索发现','btn-meth':'方法论',
+    'scroll-lbl':'滚动',
+    'sec-resumen':'执行摘要','h-resumen':'宇宙的<span class="a">数字</span>',
+    'sec-metodos':'探测方法','h-metodos':'我们如何发现<span class="n">其他世界</span>？',
+    'sec-facilidades':'观测设施','h-facilidades':'系外行星的<span class="s">猎手</span>们',
+    'sec-tiempo':'时间演变','h-tiempo':'一段<span class="a">发现</span>的历史',
+    'sec-espacio':'空间位置','h-espacio':'绘制<span class="p">宇宙</span>地图',
+    'sec-esi':'地球相似指数','h-esi':'宇宙中还有另一个<span class="l">地球</span>吗？',
+    'sec-historia':'分析叙事','h-historia':'EDA的<span class="a">故事</span>',
+    'sec-curiosidades':'趣味发现','h-curiosidades':'宇宙给我们带来的<span class="n">惊喜</span>',
+    'sec-metodologia':'研究方法','h-metodologia':'分析的<span class="a">背后</span>',
+    'conc-quote':'"宇宙有 <span style=\"color:var(--arc)\">5,523个理由</span><br>让我们继续仰望星空"',
+    'author-lbl':'分析作者'
+  },
+  en:{
+    'hero-stat':'NASA Exoplanet Archive · October 2023 · 5,523 records',
+    'hero-title':'BEYOND THE SUN',
+    'hero-l2':'5,523 Confirmed Worlds',
+    'hero-sub':'Exploratory data analysis of the NASA exoplanet catalogue. <strong>Detection methods</strong>, observatories, galactic positions and habitable candidates under the data magnifying glass.',
+    'btn-explore':'Explore findings','btn-meth':'Methodology',
+    'scroll-lbl':'scroll',
+    'sec-resumen':'Executive Summary','h-resumen':'The universe in <span class="a">numbers</span>',
+    'sec-metodos':'Detection Methods','h-metodos':'How do we find <span class="n">other worlds</span>?',
+    'sec-facilidades':'Facilities','h-facilidades':'The exoplanet <span class="s">hunters</span>',
+    'sec-tiempo':'Temporal Evolution','h-tiempo':'A history of <span class="a">discoveries</span>',
+    'sec-espacio':'Spatial Position','h-espacio':'Mapping the <span class="p">cosmos</span>',
+    'sec-esi':'Earth Similarity Index','h-esi':'Is there another <span class="l">Earth</span> out there?',
+    'sec-historia':'Analysis Narrative','h-historia':'The <span class="a">story</span> of the EDA',
+    'sec-curiosidades':'Curiosities','h-curiosidades':'What the universe <span class="n">surprised</span> us by saying',
+    'sec-metodologia':'Methodology','h-metodologia':'Behind the <span class="a">analysis</span>',
+    'conc-quote':'"The universe has <span style=\"color:var(--arc)\">5,523 reasons</span><br>to keep looking at the sky"',
+    'author-lbl':'Analysis by'
+  }
+};
+let curLang='es';
+function setLang(lang,btn){
+  curLang=lang;
+  document.getElementById('btnES').classList.toggle('active',lang==='es');
+  document.getElementById('btnEN').classList.toggle('active',lang==='en');
+  document.getElementById('btnZH').classList.toggle('active',lang==='zh');
+  document.documentElement.lang=lang;
+  const t=TEXTS[lang];
+  // hero
+  const hstat=document.querySelector('.hstat');
+  if(hstat)hstat.childNodes[1].textContent=' '+t['hero-stat'];
+  const htitle=document.querySelector('.htitle');
+  if(htitle){htitle.childNodes[0].textContent=t['hero-title'];const l2=htitle.querySelector('.l2');if(l2)l2.textContent=t['hero-l2'];}
+  const hsub=document.querySelector('.hsub');if(hsub)hsub.innerHTML=t['hero-sub'];
+  // chips & headings
+  const chipMap={'resumen':'sec-resumen','metodos':'sec-metodos','facilidades':'sec-facilidades','tiempo':'sec-tiempo','espacio':'sec-espacio','esi':'sec-esi','historia':'sec-historia','curiosidades':'sec-curiosidades','metodologia':'sec-metodologia'};
+  Object.keys(chipMap).forEach(id=>{
+    const sec=document.getElementById(id);if(!sec)return;
+    const chip=sec.querySelector('.chip');if(chip)chip.lastChild.textContent=' '+t[chipMap[id]].replace(/<[^>]+>/g,'');
+    const h=sec.querySelector('.sh');if(h)h.innerHTML=t['h-'+id];
+  });
+  const cq=document.querySelector('.conc-quote-inner');if(cq)cq.innerHTML=t['conc-quote'];
+  const albl=document.querySelector('.albl');if(albl)albl.textContent=t['author-lbl'];
+}
+
+/* ── CODE TOGGLE ── */
+const CODES={
+  methChart:`<span class="kw">import</span> plotly.express <span class="kw">as</span> px
+df_dis = df.groupby(<span class="st">"discoverymethod"</span>).size().reset_index(name=<span class="st">"counts"</span>)
+df_dis = df_dis.sort_values(<span class="st">'counts'</span>, ascending=<span class="nb">True</span>)
+fig = px.bar(df_dis, y=<span class="st">'discoverymethod'</span>, x=<span class="st">'counts'</span>, text_auto=<span class="st">'auto'</span>,
+             color_discrete_sequence=px.colors.sequential.thermal[<span class="nb">1</span>:])
+fig.update_layout(template=<span class="st">"plotly_white"</span>, title_text=<span class="st">'Exoplanets by method of discovery'</span>)
+fig.show()`,
+  methLineChart:`<span class="cm"># Group by year and method</span>
+df_year = df.groupby([<span class="st">'disc_year'</span>, <span class="st">'discoverymethod'</span>]).size().reset_index(name=<span class="st">'counts'</span>)
+fig = px.line(df_year, x=<span class="st">'disc_year'</span>, y=<span class="st">'counts'</span>, color=<span class="st">'discoverymethod'</span>,
+              color_discrete_sequence=px.colors.sequential.thermal[<span class="nb">1</span>:])
+fig.update_layout(template=<span class="st">"plotly_white"</span>)
+fig.show()`,
+  locChart:`df_facloc = df.groupby(<span class="st">"disc_locale"</span>).size().reset_index(name=<span class="st">"counts"</span>)
+fig = px.pie(df_facloc, values=<span class="st">'counts'</span>, names=<span class="st">'disc_locale'</span>,
+             color_discrete_sequence=px.colors.sequential.thermal[<span class="nb">1</span>:])
+fig.update_layout(title_text=<span class="st">'Discovery locations (%)'</span>)
+fig.show()`,
+  spaceChart:`df_facspace = df_fac.loc[df_fac[<span class="st">'disc_locale'</span>] == <span class="st">'Space'</span>]
+df_facspace = df_facspace.sort_values(<span class="st">'counts'</span>, ascending=<span class="nb">True</span>)
+fig = px.bar(df_facspace, y=<span class="st">'disc_facility'</span>, x=<span class="st">'counts'</span>, text_auto=<span class="st">'auto'</span>,
+             color_discrete_sequence=px.colors.sequential.thermal[<span class="nb">1</span>:])
+fig.update_layout(template=<span class="st">"plotly_white"</span>)
+fig.show()`,
+  groundChart:`df_facground = df_fac.loc[df_fac[<span class="st">'disc_locale'</span>] == <span class="st">'Ground'</span>]
+df_facground = df_facground.sort_values(<span class="st">'counts'</span>, ascending=<span class="nb">True</span>)
+fig = px.bar(df_facground, y=<span class="st">'disc_facility'</span>, x=<span class="st">'counts'</span>, text_auto=<span class="st">'auto'</span>,
+             color_discrete_sequence=px.colors.sequential.thermal[<span class="nb">2</span>:], height=<span class="nb">1500</span>)
+fig.update_layout(template=<span class="st">"plotly_white"</span>)
+fig.show()`,
+  mapPlot:`fig = px.scatter_geo(df_facground, lat=<span class="st">'latitude'</span>, lon=<span class="st">'longitude'</span>,
+                     color=<span class="st">'counts'</span>, hover_name=<span class="st">'disc_facility'</span>,
+                     size=<span class="st">'counts'</span>, size_max=<span class="nb">50</span>)
+fig.update_geos(visible=<span class="nb">False</span>, showcountries=<span class="nb">True</span>, countrycolor=<span class="st">"darkGray"</span>)
+fig.update_layout(title_text=<span class="st">'Exoplanet discoveries by ground-based facilities'</span>)
+fig.show()`,
+  timeChart:`df_year = df.groupby(<span class="st">"disc_year"</span>).size().reset_index(name=<span class="st">"counts"</span>)
+df_year = df_year.sort_values(<span class="st">'disc_year'</span>, ascending=<span class="nb">True</span>)
+df_year[<span class="st">"total"</span>] = df_year[<span class="st">"counts"</span>].cumsum()
+fig = px.bar(df_year, x=<span class="st">'disc_year'</span>, y=<span class="st">'counts'</span>,
+             color_discrete_sequence=px.colors.sequential.thermal[<span class="nb">2</span>:], text_auto=<span class="st">"auto"</span>)
+fig.update_layout(template=<span class="st">"plotly_white"</span>, title=<span class="st">'Exoplanets detected every year'</span>)
+fig.show()`,
+  aitoffChart:`<span class="kw">from</span> astropy <span class="kw">import</span> units <span class="kw">as</span> u
+<span class="kw">from</span> astropy.coordinates <span class="kw">import</span> SkyCoord
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+c = SkyCoord(df[<span class="st">'rastr'</span>], df[<span class="st">'decstr'</span>], df[<span class="st">'sy_dist'</span>], frame=<span class="st">'fk5'</span>)
+c_gal = c.galactic
+l_rad = c_gal.l.radian
+l_rad[l_rad > np.pi] -= <span class="nb">2.</span> * np.pi
+b_rad = c_gal.b.radian
+fig = plt.figure(figsize=(<span class="nb">8</span>,<span class="nb">5</span>))
+ax = fig.add_subplot(<span class="nb">1</span>,<span class="nb">1</span>,<span class="nb">1</span>, projection=<span class="st">'aitoff'</span>)
+ax.scatter(l_rad, b_rad, s=<span class="nb">1</span>, color=<span class="st">'darkBlue'</span>, alpha=<span class="nb">0.05</span>)
+ax.grid()`,
+  distChart:`<span class="cm"># Distance distribution using galactic coordinates</span>
+fig = px.histogram(df, x=<span class="st">'sy_dist'</span>, nbins=<span class="nb">80</span>,
+                   color_discrete_sequence=px.colors.sequential.thermal[<span class="nb">2</span>:])
+fig.update_layout(template=<span class="st">"plotly_white"</span>, title=<span class="st">'Distance distribution (parsecs)'</span>)
+fig.add_vline(x=<span class="nb">1000</span>, line_dash=<span class="st">"dash"</span>, line_color=<span class="st">"red"</span>)
+fig.show()`,
+  esiRadChart:`fig = px.scatter(exopl_esi, x=<span class="st">"pl_rade"</span>, y=<span class="st">"pl_insol"</span>,
+                color=<span class="st">"ESI"</span>, hover_data=<span class="st">'pl_name'</span>)
+fig.add_vline(x=<span class="nb">1</span>, line_dash=<span class="st">"dash"</span>, line_color=<span class="st">"red"</span>)
+fig.add_hline(y=<span class="nb">1</span>, line_dash=<span class="st">"dash"</span>, line_color=<span class="st">"red"</span>)
+fig.add_annotation(x=<span class="nb">1</span>, y=<span class="nb">1</span>, text=<span class="st">"Earth"</span>, showarrow=<span class="nb">False</span>, yshift=<span class="nb">10</span>)
+fig.update_layout(template=<span class="st">"plotly_white"</span>, title=<span class="st">'ESI by flux and radius'</span>)
+fig.show()`,
+  esiMassChart:`fig = px.scatter(exopl_esi, x=<span class="st">"pl_bmasse"</span>, y=<span class="st">"pl_insol"</span>,
+                color=<span class="st">"ESI"</span>, hover_data=<span class="st">'pl_name'</span>)
+fig.add_vline(x=<span class="nb">1</span>, line_dash=<span class="st">"dash"</span>, line_color=<span class="st">"red"</span>)
+fig.add_hline(y=<span class="nb">1</span>, line_dash=<span class="st">"dash"</span>, line_color=<span class="st">"red"</span>)
+fig.add_annotation(x=<span class="nb">1</span>, y=<span class="nb">1</span>, text=<span class="st">"Earth"</span>, showarrow=<span class="nb">False</span>, yshift=<span class="nb">10</span>)
+fig.update_layout(template=<span class="st">"plotly_white"</span>, title=<span class="st">'ESI by flux and mass'</span>)
+fig.show()`,
+  keplerChart:`fig = px.scatter(exopl_map, x=<span class="st">"pl_insol"</span>, y=<span class="st">"st_teff"</span>,
+                color=<span class="st">"ESI"</span>, hover_data=[<span class="st">'ESI'</span>, <span class="st">'pl_name'</span>, <span class="st">'disc_year'</span>])
+fig.add_vline(x=<span class="nb">1</span>, line_dash=<span class="st">"dash"</span>, line_color=<span class="st">"red"</span>)
+fig.add_hline(y=<span class="nb">5780</span>, line_dash=<span class="st">"dash"</span>, line_color=<span class="st">"red"</span>)
+fig.add_annotation(x=<span class="nb">1</span>, y=<span class="nb">5780</span>, text=<span class="st">"Earth"</span>, showarrow=<span class="nb">False</span>, yshift=<span class="nb">10</span>)
+fig.update_layout(template=<span class="st">"plotly_white"</span>,
+  title=<span class="st">'ESI by stellar flux and effective temperature'</span>)
+fig.show()`
+};
+
+function toggleCode(chartId){
+  const btn=document.getElementById('ctbtn-'+chartId);
+  const block=document.getElementById('cblock-'+chartId);
+  if(!block)return;
+  const isOpen=block.classList.contains('show');
+  block.classList.toggle('show',!isOpen);
+  if(btn)btn.innerHTML=isOpen?'<i class="fas fa-code"></i> Ver código Python':'<i class="fas fa-eye-slash"></i> Ocultar código';
+}
+
+function addCodeToggles(){
+  const chartIds=['methChart','methLineChart','locChart','spaceChart','groundChart','mapPlot','timeChart','aitoffChart','distChart','esiRadChart','esiMassChart','keplerChart'];
+  chartIds.forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el||!CODES[id])return;
+    const wrap=document.createElement('div');
+    wrap.className='code-wrap';
+    wrap.innerHTML=`<button class="ctbtn" id="ctbtn-${id}" onclick="toggleCode('${id}')"><i class="fas fa-code"></i> Ver código Python</button><div class="cblock" id="cblock-${id}"><pre>${CODES[id]}</pre></div>`;
+    el.parentNode.insertBefore(wrap,el.nextSibling);
+  });
+}
+addCodeToggles();
 </script>
 </body>
 </html>
