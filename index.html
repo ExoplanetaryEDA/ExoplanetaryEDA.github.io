@@ -42,18 +42,18 @@ body{font-family:var(--fB);background:var(--void);color:var(--tx1);overflow-x:hi
 #tnav.lit{border-bottom-color:rgba(0,212,255,.1);}
 #tnav::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 0%,rgba(0,212,255,.0) 20%,rgba(0,212,255,.18) 50%,rgba(0,212,255,.0) 80%,transparent 100%);opacity:0;transition:opacity .5s;}
 #tnav.lit::after{opacity:1;}
-.tni{max-width:1300px;margin:0 auto;padding:0 1.2rem;display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none;position:relative;}
+.tni{max-width:none;margin:0;padding:0 140px 0 0.8rem;display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none;position:relative;}
 .tni::-webkit-scrollbar{display:none;}
-.tnbrand{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;padding:13px 14px 13px 0;margin-right:6px;border-right:1px solid rgba(255,255,255,.04);}
+.tnbrand{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;padding:5px 10px 5px 0;margin-right:0px;border-right:1px solid rgba(255,255,255,.04);}
 .tnbrand-ic{width:27px;height:27px;background:linear-gradient(135deg,rgba(0,212,255,.14),rgba(123,47,255,.14));border:1px solid rgba(0,212,255,.28);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--arc);font-size:10px;}
 .tnbrand span{font-family:var(--fH);font-size:.68rem;font-weight:700;letter-spacing:.1em;color:var(--tx1);text-transform:uppercase;}
 .tnbrand em{color:var(--arc);font-style:normal;}
-.tni-item{flex:1;min-width:76px;display:flex;flex-direction:column;align-items:center;padding:11px 4px 13px;cursor:pointer;position:relative;text-decoration:none;border:none;background:none;white-space:nowrap;}
+.tni-item{flex:1;min-width:54px;display:flex;flex-direction:column;align-items:center;padding:5px 3px 6px;cursor:pointer;position:relative;text-decoration:none;border:none;background:none;white-space:nowrap;}
 .tni-item:not(:first-of-type)::before{content:'';position:absolute;top:17px;right:50%;width:50%;height:1px;background:var(--tx3);transition:background .4s;}
 .tni-item:not(:last-of-type)::after{content:'';position:absolute;top:17px;left:50%;width:50%;height:1px;background:var(--tx3);transition:background .4s;}
 .tni-item.vis::after,.tni-item.act::after{background:rgba(0,212,255,.45);}
 .tni-item.vis:not(:first-of-type)::before,.tni-item.act:not(:first-of-type)::before{background:rgba(0,212,255,.45);}
-.tni-dot{width:7px;height:7px;border-radius:50%;background:var(--tx3);border:1.5px solid rgba(255,255,255,.08);margin-bottom:5px;position:relative;z-index:1;flex-shrink:0;transition:all .35s cubic-bezier(.4,0,.2,1);}
+.tni-dot{width:7px;height:7px;border-radius:50%;background:var(--tx3);border:1.5px solid rgba(255,255,255,.08);margin-bottom:5px;margin-top:4px;position:relative;z-index:1;flex-shrink:0;transition:all .35s cubic-bezier(.4,0,.2,1);}
 .tni-item.vis .tni-dot{background:rgba(0,212,255,.28);border-color:rgba(0,212,255,.38);}
 .tni-item.act .tni-dot{background:var(--arc);border-color:var(--arc);box-shadow:0 0 0 4px rgba(0,212,255,.12),0 0 10px rgba(0,212,255,.4);transform:scale(1.35);}
 .tni-lbl{font-family:var(--fM);font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;color:var(--tx3);transition:color .3s;line-height:1;}
@@ -82,7 +82,7 @@ main{position:relative;z-index:1;padding-top:62px;}
 .sd{font-size:.94rem;color:var(--tx2);max-width:600px;line-height:1.84;font-weight:300;}
 
 /* ── HERO ── */
-#hero{min-height:100vh;max-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 2rem 80px;position:relative;overflow:hidden;}
+#hero{min-height:100vh;max-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 2rem 40px;position:relative;overflow:hidden;}
 .horb{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(680px,96vw);height:min(680px,96vw);border-radius:50%;background:radial-gradient(ellipse at center,rgba(0,212,255,.038) 0%,rgba(123,47,255,.022) 40%,transparent 70%);pointer-events:none;}
 .horb::before{content:'';position:absolute;inset:-1px;border-radius:50%;border:1px solid rgba(0,212,255,.055);animation:op 6s ease-in-out infinite;}
 .horb::after{content:'';position:absolute;inset:-44px;border-radius:50%;border:1px dashed rgba(123,47,255,.038);animation:sp 65s linear infinite;}
@@ -92,9 +92,9 @@ main{position:relative;z-index:1;padding-top:62px;}
 .hstat{display:inline-flex;align-items:center;gap:8px;font-family:var(--fM);font-size:.6rem;letter-spacing:.2em;color:var(--arc);text-transform:uppercase;margin-bottom:1.8rem;padding:6px 14px;background:rgba(0,212,255,.055);border:1px solid rgba(0,212,255,.18);border-radius:3px;animation:fU .8s ease both;}
 .sdot{width:6px;height:6px;border-radius:50%;background:var(--arc);box-shadow:0 0 6px var(--arc);animation:sb 1.8s ease infinite;}
 @keyframes sb{0%,100%{opacity:1;}50%{opacity:.25;}}
-.htitle{font-family:var(--fH);font-size:clamp(2.8rem,7.5vw,5.4rem);font-weight:900;line-height:1.0;letter-spacing:-.02em;color:var(--tx1);margin-bottom:1rem;animation:fU .85s ease .15s both;}
-.htitle .l2{display:block;font-size:clamp(1.7rem,4.5vw,3.6rem);font-weight:400;color:transparent;-webkit-text-stroke:1px rgba(0,212,255,.48);letter-spacing:.05em;margin-top:.22rem;}
-.hsub{font-size:clamp(.9rem,1.6vw,1.04rem);color:var(--tx2);max-width:540px;margin:0 auto 2rem;line-height:1.9;font-weight:300;animation:fU .85s ease .3s both;}
+.htitle{font-family:var(--fH);font-size:clamp(1.5rem,6vw,4.5rem);font-weight:900;line-height:1.0;letter-spacing:-.02em;color:var(--tx1);margin-bottom:1rem;animation:fU .85s ease .15s both;}
+.htitle .l2{display:block;font-size:clamp(1rem,4vw,3rem);font-weight:400;color:transparent;-webkit-text-stroke:1px rgba(0,212,255,.48);letter-spacing:.05em;margin-top:.22rem;}
+.hsub{font-size:clamp(.9rem,1.6vw,1.04rem);color:var(--tx2);max-width:700px;margin:0 auto 2rem;line-height:1.9;font-weight:300;animation:fU .85s ease .3s both;}
 .hsub strong{color:var(--tx1);font-weight:500;}
 .hmets{display:inline-flex;border:1px solid var(--rim2);border-radius:var(--r);overflow:hidden;margin:0 0 2.2rem;animation:fU .85s ease .45s both;}
 .hm{text-align:center;padding:17px 26px;border-right:1px solid var(--rim2);position:relative;}
@@ -221,7 +221,7 @@ footer a{color:var(--arc);text-decoration:none;}
 @media(max-width:600px){.kg{grid-template-columns:repeat(2,1fr);}.hbtns{flex-direction:column;align-items:center;}.hmets{flex-wrap:wrap;}.hm{border-right:none;border-bottom:1px solid var(--rim2);padding:12px 18px;}}
 
 /* ── LANG TOGGLE ── */
-.lang-toggle{position:fixed;top:14px;right:1.5rem;z-index:600;display:flex;align-items:center;border-radius:100px;background:rgba(0,5,8,.75);border:1px solid rgba(0,212,255,.22);backdrop-filter:blur(16px);padding:3px;transition:all .3s;}
+.lang-toggle{position:fixed;top:3px;right:0.5rem;z-index:600;display:flex;align-items:center;border-radius:100px;background:rgba(0,5,8,.75);border:1px solid rgba(0,212,255,.22);backdrop-filter:blur(16px);padding:3px;transition:all .3s;}
 .lang-btn{padding:5px 14px;border-radius:100px;font-family:var(--fM);font-size:.6rem;letter-spacing:.1em;font-weight:700;color:var(--tx3);transition:all .25s;border:none;background:none;cursor:pointer;text-transform:uppercase;}
 .lang-btn.active{background:rgba(0,212,255,.15);color:var(--arc);}
 .lang-btn:hover:not(.active){color:var(--tx1);}
@@ -271,10 +271,10 @@ footer a{color:var(--arc);text-decoration:none;}
 </nav>
 <main>
 <!-- HERO -->
-<section id="hero" style="min-height:100vh;max-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 2rem 80px;position:relative;overflow:hidden;">
+<section id="hero" style="min-height:100vh;max-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px 2rem 40px;position:relative;overflow:hidden;">
   <div class="horb"></div>
   <div class="hc">
-    <div class="hstat"><span class="sdot"></span>NASA Exoplanet Archive · Octubre 2023 · 5,523 registros</div>
+    
     <h1 class="htitle">MÁS ALLÁ DEL SOL<span class="l2">5,523 Mundos Confirmados</span></h1>
     <p class="hsub">Análisis exploratorio del catálogo de exoplanetas de la NASA. <strong>Métodos de detección</strong>, observatorios, posiciones galácticas y candidatos habitables bajo la lupa de los datos.</p>
     <div class="hmets">
