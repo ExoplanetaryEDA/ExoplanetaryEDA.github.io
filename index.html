@@ -456,7 +456,8 @@ footer a{color:var(--arc);text-decoration:none;}
 <!-- AUTHOR -->
 <div class="author-bar">
   <div class="albl">Análisis elaborado por</div>
-  <a href="https://www.linkedin.com/in/alejandro-lozano-pastor-52437a251/" target="_blank" class="author-li">
+  <span class="author-name">Alejandro Lozano Pastor</span>
+  <a href="https://www.linkedin.com/in/alejandro-lozano-pastor" target="_blank" class="author-li">
     <i class="fab fa-linkedin"></i> Alejandro Lozano Pastor | LinkedIn
   </a>
 </div>
@@ -732,7 +733,105 @@ const TEXTS={
     'sec-curiosidades':'Curiosidades','h-curiosidades':'Lo que el universo nos <span class="n">sorprendió</span> diciendo',
     'sec-metodologia':'Metodología','h-metodologia':'Detrás del <span class="a">análisis</span>',
     'conc-quote':'<span class="conc-quote-inner">"El universo tiene <span style="color:var(--arc)">5,523 razones</span><br>para seguir mirando al cielo"</span>',
-    'author-lbl':'Análisis elaborado por'
+    'author-lbl':'Análisis elaborado por',
+    // KPIs
+    'kl-confirmed':'Exoplanetas confirmados','kn-confirmed':'// A 02/10/2023',
+    'kl-transit':'Descubiertos por tránsito','kn-transit':'// Método dominante',
+    'kl-space':'Descubiertos desde el espacio','kn-space':'// Kepler lidera ampliamente',
+    'kl-lasilla':'Planetas de La Silla Obs.','kn-lasilla':'// Líder terrestre — Atacama',
+    'kl-esi':'ESI máximo — Teegarden b','kn-esi':'// Más similar a la Tierra',
+    'kl-dist':'Distancia de la mayoría','kn-dist':'// Límite del paralaje solar',
+    // section descriptions
+    'sd-resumen':'Métricas clave del dataset NASA Exoplanet Archive (PS_2023.08.02). Cada cifra condensa décadas de observación, algoritmos de detección y misiones espaciales.',
+    'sd-metodos':'Sin poder ver directamente la mayoría de los exoplanetas, los astrónomos usan efectos indirectos: cambios de brillo, perturbaciones gravitacionales y microlentes.',
+    'sd-facilidades':'Desde el jardín de Massachusetts de un astrónomo amateur hasta Kepler, que detectó más de 2,600 planetas él solo. El equipamiento detrás del catálogo.',
+    'sd-tiempo':'Desde 1992 hasta TESS. Cada año tiene su historia marcada por misiones, tecnologías y megaanuncios que redefinieron el catálogo de un golpe.',
+    'sd-espacio':'5,523 exoplanetas distribuidos en la Vía Láctea. La proyección de Aitoff y el histograma de distancias revelan dónde miran los telescopios, no dónde están los planetas.',
+    'sd-esi':'El ESI del Laboratorio de Habitabilidad Planetaria (UPR Arecibo) escala de 0 a 1 el parecido físico con la Tierra. Solo 57 exoplanetas del catálogo tienen ESI asignado.',
+    'sd-historia':'El análisis siguió un pipeline reproducible de 8 pasos: carga, limpieza, detección, instalaciones, evolución temporal, posición galáctica, ESI y curiosidades.',
+    'sd-curiosidades':'Hallazgos inesperados que surgieron durante el análisis. Desde un exoplaneta descubierto en un jardín hasta el candidato más parecido a la Tierra.',
+    'sd-metodologia':'Fuentes, herramientas, decisiones de limpieza, sesgos y limitaciones. La transparencia metodológica es tan importante como los resultados.',
+    // chart titles/subtitles
+    'cct-meth':'Exoplanetas por método','ccs-meth':'5,523 planetas · NASA octubre 2023',
+    'cct-methline':'Evolución histórica por método','ccs-methline':'1992–2023 — Cambio del paradigma',
+    'cct-loc':'Localización de descubrimientos','ccs-loc':'Espacio vs Tierra vs Múltiple',
+    'cct-space':'Top instalaciones espaciales','ccs-space':'Exoplanetas confirmados por telescopio',
+    'cct-ground':'Top observatorios terrestres','ccs-ground':'Instalaciones más prolíficas desde tierra firme',
+    'cct-map':'Mapa de observatorios terrestres','ccs-map':'Geolocalización con geopy (Nominatim) — tamaño proporcional a descubrimientos',
+    'cct-time':'Exoplanetas descubiertos por año','ccs-time':'Acumulado total superpuesto',
+    'cct-aitoff':'Mapa galáctico — Proyección Aitoff','ccs-aitoff':'Coordenadas galácticas (l, b) vía astropy',
+    'cct-dist':'Distribución de distancias','ccs-dist':'En pársecs · línea roja = 1,000 pc',
+    'cct-esirad':'ESI: radio vs flujo de insolación','ccs-esirad':'Líneas rojas = valores de la Tierra (1 R⊕, 1 S⊕)',
+    'cct-esimass':'ESI: masa vs flujo de insolación','ccs-esimass':'Con y sin filtro de ESI calculado',
+    'cct-kepler':'Diagrama de habitabilidad estelar','ccs-kepler':'Temperatura efectiva de la estrella vs flujo de insolación',
+    // chart filter buttons
+    'cb-all':'Todos','cb-transit':'Tránsito','cb-rv':'Vel. Radial','cb-other':'Otros',
+    'cb-bar':'Barras','cb-donut':'Circular',
+    'cb-esi-only':'Solo ESI','cb-esi-all':'Todos',
+    // notes
+    'note-transit':'<strong>Dominio del Tránsito:</strong> Con ~74%, es hegemónico gracias a Kepler y TESS. Detecta el oscurecimiento estelar cuando el planeta cruza frente a su estrella, revelando radio, período y composición atmosférica. La velocidad radial, pionera de los 90s, queda segunda con ~19%.',
+    'note-kepler09':'<strong>Kepler invierte todo en 2009:</strong> La velocidad radial dominaba antes de Kepler. Los mega-picos de 2014 y 2016 son los anuncios masivos: 715 y 1,284 planetas confirmados en un solo comunicado.',
+    'note-space-wins':'<strong>El espacio gana:</strong> Más del 67% descubiertos desde el espacio. Sin atmósfera, los telescopios monitorizan estrellas con precisión fotométrica inigualable.',
+    'note-kepler-leads':'<strong>Kepler lidera:</strong> Kepler (2009–2018) monitorizó 150,000 estrellas. Renombrado K2 tras el fallo de apuntamiento. TESS mantiene el flujo desde 2018.',
+    'note-lasilla':'<strong>La Silla y el Atacama:</strong> La Silla (Chile, 1969) lidera con 276 confirmaciones. Paul Benni y Artem Burdanov (MIT) confirmaron 2 exoplanetas desde el jardín de una residencia en Massachusetts.',
+    'note-southhemi':'<strong>Hemisferio sur dominante:</strong> Los mejores cielos se concentran en Chile (Atacama) y Hawái. ESO y los observatorios del Pacífico lideran la lista terrestre.',
+    'note-twomoments':'<strong>Dos momentos históricos:</strong> Feb 2014: 715 confirmaciones de Kepler en un anuncio. Mayo 2016: 1,284 nuevas en un día — el mayor anuncio de exoplanetas de la historia. Desde 2019, TESS mantiene flujos más regulares.',
+    'note-aitoff':'<strong>El sello de Kepler:</strong> El campo de visión cruciforme de Kepler es inconfundible en la proyección Aitoff. Los exoplanetas se concentran hacia el plano galáctico.',
+    'note-dist':'<strong>Universo cercano:</strong> La mayoría de exoplanetas confirmados se encuentran a menos de 1,000 pc. Los instrumentos actuales tienen un alcance limitado.',
+    'note-esirad':'<strong>Nadie es perfecto:</strong> Ningún exoplaneta coincide simultáneamente con radio y flujo terrestres. TOI-700 d se acerca más en radio; Teegarden\'s Star b lo hace en flujo de insolación.',
+    'note-esimass':'<strong>Sesgo del ESI:</strong> Al mostrar todos los exoplanetas, aparecen candidatos sin ESI asignado que se acercan a valores terrestres. El ESI no se calcula para planetas muy recientes o depriorizados.',
+    'note-kepler-diag':'<strong>Kepler-452b destaca:</strong> Su estrella anfitriona tiene temperatura similar al Sol (5,757 K) y flujo parecido. Es el candidato más "solar" del catálogo.',
+    // timeline chips
+    'mi-kepler':'Kepler lanzado (2009)','mi-715':'Mega-anuncio 715 planetas (2014)',
+    'mi-1284':'Récord 1,284 planetas (2016)','mi-tess':'TESS operativo (2018)',
+    // ESI cards
+    'esid-teegardenb':'+0.05 masa · +0.15 flujo insolación · 2019',
+    'esid-toi700d':'+0.073 radio · −0.15 flujo insolación · 2020',
+    'esid-kepler442b':'Radio 1.34 R⊕ · Flujo 0.70 S⊕ · 2015',
+    'esid-toi700e':'Radio 0.953 R⊕ · Flujo 1.27 S⊕ · 2023',
+    'esibl-teegarden':'ESI 0.95/1.0 — Máximo del catálogo',
+    'esibl-toi700d':'ESI 0.87/1.0',
+    'esibl-kepler442b':'ESI 0.84/1.0',
+    'esibl-toi700e':'Sin ESI oficial — datos muy recientes',
+    'esisc-noesi':'Sin ESI',
+    // curiosidades
+    'cut-1':'Kepler: 2,662 de 5,523','cup-1':'Un solo telescopio descubrió casi el 48% de todos los exoplanetas confirmados. Su campo de visión cruciforme es reconocible en cualquier mapa galáctico.',
+    'cut-2':'La Silla lidera en tierra','cup-2':'276 exoplanetas confirmados desde el desierto de Atacama. Paul Benni y Artem Burdanov (MIT) confirmaron 2 exoplanetas desde una residencia en Massachusetts.',
+    'cut-3':'Teegarden b: ESI 0.95','cup-3':'El exoplaneta con mayor índice de similitud terrestre conocido. Orbita una estrella enana roja a solo 12 años luz. Descubierto en 2019.',
+    'cut-4':'TOI-700 e: muy parecida pero sin ESI','cup-4':'Descubierta en 2023, radio 0.953 R⊕ y flujo 1.27 S⊕. Sin ESI oficial porque sus datos son demasiado recientes para el análisis del PHL.',
+    // historia steps
+    'scn-01':'// PASO 01','sct-01':'Carga y exploración inicial','scp-01':'Importación del CSV de la NASA (5,523 filas × 30 cols). Inspección de tipos, nulos y distribuciones básicas con pandas. El dataset incluye variables de descubrimiento, físicas y de posición.',
+    'scn-02':'// PASO 02','sct-02':'Limpieza de nulos','scp-02':'Análisis visual con missingno. pl_dens (~73% nulos) y pl_eqt (~55%) son las variables más incompletas. Decisión: mantenerlas con NaN y filtrar según análisis específico.',
+    'scn-03':'// PASO 03','sct-03':'Normalización de categorías','scp-03':'Detección de "Multiple Locale" (singular) vs "Multiple Locales" (correcto). Corrección aplicada. Geolocalización automática con Nominatim para 69 observatorios terrestres únicos.',
+    'scn-04':'// PASO 04','sct-04':'Métodos de detección','scp-04':'Transit (~74%) y Radial Velocity (~19%) dominan. Análisis temporal 1992–2023 revela el punto de inflexión de Kepler en 2009. Mega-anuncios de 2014 y 2016 visibles como picos.',
+    'scn-05':'// PASO 05','sct-05':'Instalaciones y geografía','scp-05':'Kepler: 2,662 planetas (48%). La Silla lidera terrestres con 276. Mapa interactivo con geopy + Nominatim. 9 observatorios con coordenadas aproximadas completadas manualmente.',
+    'scn-06':'// PASO 06','sct-06':'Earth Similarity Index','scp-06':'Integración del dataset PHL-UPR (exoplanetshab.csv). Limpieza de "(N)" y espacios. Cruce por nombre. Análisis ESI vs radio, masa y flujo. Teegarden\'s Star b = ESI máximo (0.95). Kepler-452b destaca por similitud de temperatura estelar.',
+    'scn-07':'// PASO 07','sct-07':'Posición galáctica','scp-07':'Conversión FK5 → galáctico con astropy SkyCoord. Proyección Aitoff con matplotlib. El sello cruciforme de Kepler es visible. Distribución de distancias muestra sesgo < 1,000 pc.',
+    'scn-08':'// PASO 08','sct-08':'Curiosidades y conclusiones','scp-08':'Cuatro hallazgos inesperados documentados. Pipeline de análisis completado. Transparencia metodológica con sesgos, limitaciones y referencias.',
+    // conclusion cards
+    'sct-conc1':'El tránsito domina','scp-conc1':'Los cambios de brillo cuando un planeta cruza frente a su estrella son la técnica más productiva. Kepler y TESS la explotan desde el espacio con resultados extraordinarios.',
+    'sct-conc2':'Kepler lo cambió todo','scp-conc2':'El lanzamiento de Kepler en 2009 transformó el campo. La velocidad radial que dominaba los 90s quedó eclipsada por completo.',
+    'sct-conc3':'Teegarden b lidera el ESI','scp-conc3':'Con 0.95 de similitud terrestre es el exoplaneta más parecido a la Tierra con ESI calculado. TOI-700 e podría superarlo con datos suficientes.',
+    'sct-conc4':'Kepler firma el cielo','scp-conc4':'El campo de visión cruciforme de Kepler es visible directamente en los mapas galácticos. La tecnología define qué parte del universo exploramos.',
+    // conclusion section
+    'conc-chip':'Conclusión',
+    'conc-sub':'Cada exoplaneta es una historia de ingeniería, física y perseverancia humana. Algunos son prometedores. Ninguno es idéntico a la Tierra. Todavía.',
+    'conc-back':'Volver al inicio',
+    // metodologia accordions
+    'act-datasources':'Fuentes de datos',
+    'acb-datasources':'<b>Datos principales:</b> NASA Exoplanet Archive (CalTech, bajo contrato NASA).<br>Archivo: <code>PS_2023.08.02_06.28.52.csv</code> — 5,523 exoplanetas al 02/10/2023.<br><br><b>Datos ESI:</b> Planetary Habitability Laboratory (PHL), UPR Arecibo — <code>exoplanetshab.csv</code><br><b>Geocodificación:</b> <code>geopy</code> con servicio Nominatim (OpenStreetMap).',
+    'act-variables':'Variables analizadas (18)',
+    'acb-variables':'<b>ID:</b> <code>pl_name</code> · <code>sy_snum</code> · <code>sy_pnum</code> · <code>sy_mnum</code><br><b>Descubrimiento:</b> <code>discoverymethod</code> · <code>disc_year</code> · <code>disc_facility</code> · <code>disc_locale</code><br><b>Física:</b> <code>pl_orbper</code> · <code>pl_bmasse</code> · <code>pl_rade</code> · <code>pl_dens</code> · <code>pl_eqt</code> · <code>pl_insol</code> · <code>st_teff</code><br><b>Posición:</b> <code>rastr</code> · <code>decstr</code> · <code>sy_dist</code>',
+    'act-cleaning':'Limpieza de datos',
+    'acb-cleaning':'• Análisis de nulos con <code>missingno</code><br>• Normalización: "Multiple Locale" → "Multiple Locales"<br>• Geolocalización automática con Nominatim<br>• Completación manual de 9 observatorios<br>• Conversión latitud/longitud a <code>float</code><br>• Limpieza de caracteres <code>(N)</code> y espacios en nombres ESI',
+    'act-stack':'Stack tecnológico',
+    'acb-stack':'<b>Entorno:</b> Google Colab (Python 3)<br><code>pandas</code> · <code>plotly.express</code> · <code>matplotlib</code> · <code>seaborn</code><br><code>astropy</code> (SkyCoord, conversión FK5→galáctico)<br><code>geopy</code> (Nominatim) · <code>missingno</code>',
+    'act-biases':'Sesgos y limitaciones',
+    'acb-biases':'• <b>Sesgo del tránsito:</b> Detecta mejor planetas grandes en órbitas cortas.<br>• <b>Sesgo de distancia:</b> Casi todos los planetas a menos de 1,000 pc.<br>• <b>ESI incompleto:</b> Solo ~57 planetas con ESI asignado.<br>• <b>Geocodificación:</b> 9 observatorios con coordenadas aproximadas.',
+    'act-refs':'Referencias',
+    'acb-refs':'(1) <a href="https://exoplanetarchive.ipac.caltech.edu/" target="_blank">NASA Exoplanet Archive</a><br>(2) <a href="https://exoplanets.nasa.gov/faq/31/" target="_blank">NASA — ¿Qué es un tránsito?</a><br>(3) <a href="https://www.cfa.harvard.edu/facilities-technology/telescopes-instruments/keplerk2" target="_blank">CfA Harvard — Kepler/K2</a><br>(4) <a href="https://www.eso.org/public/spain/teles-instr/lasilla/" target="_blank">ESO — La Silla Observatory</a><br>(5) <a href="https://github.com/geopy/geopy" target="_blank">geopy</a><br>(6) <a href="https://skyandtelescope.org/astronomy-news/first-discoveries-pro-am-exoplanet-survey/" target="_blank">Sky &amp; Telescope — Benni &amp; Burdanov</a><br>(7) <a href="https://phl.upr.edu/projects/earth-similarity-index-esi" target="_blank">PHL-UPR — ESI</a>',
+    // code toggle
+    'code-show':'Ver código Python','code-hide':'Ocultar código'
   },
 
   zh:{
@@ -751,8 +850,93 @@ const TEXTS={
     'sec-historia':'分析叙事','h-historia':'EDA的<span class="a">故事</span>',
     'sec-curiosidades':'趣味发现','h-curiosidades':'宇宙给我们带来的<span class="n">惊喜</span>',
     'sec-metodologia':'研究方法','h-metodologia':'分析的<span class="a">背后</span>',
-    'conc-quote':'"宇宙有 <span style=\"color:var(--arc)\">5,523个理由</span><br>让我们继续仰望星空"',
-    'author-lbl':'分析作者'
+    'conc-quote':'"宇宙有 <span style="color:var(--arc)">5,523个理由</span><br>让我们继续仰望星空"',
+    'author-lbl':'分析作者',
+    'kl-confirmed':'已确认系外行星','kn-confirmed':'// 截至2023年10月2日',
+    'kl-transit':'凌星法发现','kn-transit':'// 主导探测方法',
+    'kl-space':'太空望远镜发现','kn-space':'// 开普勒大幅领先',
+    'kl-lasilla':'拉西拉天文台行星','kn-lasilla':'// 地面领先者 — 阿塔卡马',
+    'kl-esi':'最高ESI — Teegarden b','kn-esi':'// 最接近地球',
+    'kl-dist':'大多数行星距离','kn-dist':'// 太阳视差极限',
+    'sd-resumen':'NASA系外行星档案数据集的关键指标(PS_2023.08.02)。每个数字凝聚了数十年的观测、探测算法和太空任务。',
+    'sd-metodos':'由于无法直接观测大多数系外行星，天文学家利用间接效应：亮度变化、引力扰动和微引力透镜。',
+    'sd-facilidades':'从马萨诸塞州业余天文学家的后院到开普勒，后者单独探测了2,600多颗行星。目录背后的设备。',
+    'sd-tiempo':'从1992年到TESS。每年都有其故事，由任务、技术和一次性重新定义目录的重大公告标记。',
+    'sd-espacio':'5,523颗系外行星分布在银河系中。Aitoff投影和距离直方图揭示了望远镜的观测方向，而非行星的实际位置。',
+    'sd-esi':'波多黎各大学阿雷西博行星宜居性实验室(PHL-UPR)的ESI将与地球的物理相似度从0到1进行量化。目录中只有57颗系外行星被分配了ESI。',
+    'sd-historia':'分析遵循8步可复现流程：加载、清洗、探测、设施、时间演变、银河位置、ESI和趣味发现。',
+    'sd-curiosidades':'分析过程中出现的意外发现。从后院发现的系外行星到最接近地球的候选者。',
+    'sd-metodologia':'数据来源、工具、清洗决策、偏差和局限性。方法透明度与结果同样重要。',
+    'cct-meth':'按方法分类的系外行星','ccs-meth':'5,523颗行星 · NASA 2023年10月',
+    'cct-methline':'按方法的历史演变','ccs-methline':'1992–2023 — 范式转变',
+    'cct-loc':'发现地点','ccs-loc':'太空 vs 地面 vs 多地点',
+    'cct-space':'顶级太空设施','ccs-space':'按望远镜确认的系外行星',
+    'cct-ground':'顶级地面观测站','ccs-ground':'地面最高产设施',
+    'cct-map':'地面观测站地图','ccs-map':'使用geopy(Nominatim)地理编码 — 大小与发现数量成正比',
+    'cct-time':'每年发现的系外行星','ccs-time':'叠加累计总量',
+    'cct-aitoff':'银河地图 — Aitoff投影','ccs-aitoff':'通过astropy的银河坐标(l, b)',
+    'cct-dist':'距离分布','ccs-dist':'以秒差距为单位 · 红线 = 1,000 pc',
+    'cct-esirad':'ESI：半径与辐照通量','ccs-esirad':'红线 = 地球值(1 R⊕, 1 S⊕)',
+    'cct-esimass':'ESI：质量与辐照通量','ccs-esimass':'有无ESI计算过滤',
+    'cct-kepler':'恒星宜居性图','ccs-kepler':'恒星有效温度与辐照通量',
+    'cb-all':'全部','cb-transit':'凌星','cb-rv':'径向速度','cb-other':'其他',
+    'cb-bar':'条形图','cb-donut':'饼图',
+    'cb-esi-only':'仅ESI','cb-esi-all':'全部',
+    'note-transit':'<strong>凌星主导：</strong>得益于开普勒和TESS，占比~74%。当行星经过恒星前方时探测恒星变暗，揭示半径、周期和大气成分。90年代先驱的径向速度法以~19%位居第二。',
+    'note-kepler09':'<strong>开普勒在2009年改变一切：</strong>开普勒之前径向速度法占主导。2014年和2016年的巨大峰值是大规模公告：单次通报确认715和1,284颗行星。',
+    'note-space-wins':'<strong>太空获胜：</strong>超过67%从太空发现。没有大气层，望远镜以无与伦比的测光精度监测恒星。',
+    'note-kepler-leads':'<strong>开普勒领先：</strong>开普勒(2009–2018)监测了150,000颗恒星。指向失灵后更名为K2。TESS自2018年维持数据流。',
+    'note-lasilla':'<strong>拉西拉与阿塔卡马：</strong>拉西拉(智利，1969年)以276次确认领先。麻省理工学院的Paul Benni和Artem Burdanov从马萨诸塞州住宅后院确认了2颗系外行星。',
+    'note-southhemi':'<strong>南半球主导：</strong>最佳天空集中在智利(阿塔卡马)和夏威夷。ESO和太平洋观测站领导地面名单。',
+    'note-twomoments':'<strong>两个历史时刻：</strong>2014年2月：开普勒单次公告715次确认。2016年5月：单日1,284颗新行星 — 史上最大系外行星公告。2019年起TESS保持更稳定的数据流。',
+    'note-aitoff':'<strong>开普勒的印记：</strong>开普勒的十字形视场在Aitoff投影中清晰可辨。系外行星集中在银河平面附近。',
+    'note-dist':'<strong>近邻宇宙：</strong>大多数已确认系外行星在1,000秒差距以内。当前仪器探测范围有限。',
+    'note-esirad':'<strong>无人完美：</strong>没有系外行星同时符合地球半径和通量值。TOI-700 d在半径上更接近；Teegarden\'s Star b在辐照通量上更接近。',
+    'note-esimass':'<strong>ESI偏差：</strong>显示所有系外行星时，出现无ESI分配但接近地球值的候选者。非常近期或被降级的行星不计算ESI。',
+    'note-kepler-diag':'<strong>开普勒-452b突出：</strong>其宿主恒星温度与太阳相似(5,757 K)，通量也相近。是目录中最"类太阳"的候选者。',
+    'mi-kepler':'开普勒发射(2009)','mi-715':'大公告715颗行星(2014)',
+    'mi-1284':'记录1,284颗行星(2016)','mi-tess':'TESS运行(2018)',
+    'esid-teegardenb':'+0.05质量 · +0.15辐照通量 · 2019',
+    'esid-toi700d':'+0.073半径 · −0.15辐照通量 · 2020',
+    'esid-kepler442b':'半径1.34 R⊕ · 通量0.70 S⊕ · 2015',
+    'esid-toi700e':'半径0.953 R⊕ · 通量1.27 S⊕ · 2023',
+    'esibl-teegarden':'ESI 0.95/1.0 — 目录最高',
+    'esibl-toi700d':'ESI 0.87/1.0',
+    'esibl-kepler442b':'ESI 0.84/1.0',
+    'esibl-toi700e':'无官方ESI — 数据太新',
+    'esisc-noesi':'无ESI',
+    'cut-1':'开普勒：5,523颗中的2,662颗','cup-1':'单个望远镜发现了近48%的所有已确认系外行星。其十字形视场在任何银河地图上都清晰可辨。',
+    'cut-2':'拉西拉在地面领先','cup-2':'从阿塔卡马沙漠确认了276颗系外行星。麻省理工学院的Paul Benni和Artem Burdanov从马萨诸塞州住宅后院确认了2颗系外行星。',
+    'cut-3':'Teegarden b：ESI 0.95','cup-3':'已知地球相似度最高的系外行星。绕一颗距我们仅12光年的红矮星运行。2019年发现。',
+    'cut-4':'TOI-700 e：非常相似但无ESI','cup-4':'2023年发现，半径0.953 R⊕，通量1.27 S⊕。无官方ESI，因为其数据对于PHL分析来说太新了。',
+    'scn-01':'// 步骤 01','sct-01':'加载与初步探索','scp-01':'导入NASA CSV(5,523行 × 30列)。用pandas检查类型、空值和基本分布。数据集包含发现、物理和位置变量。',
+    'scn-02':'// 步骤 02','sct-02':'空值清洗','scp-02':'用missingno进行可视化分析。pl_dens(~73%空值)和pl_eqt(~55%)是最不完整的变量。决策：保留NaN并根据具体分析进行过滤。',
+    'scn-03':'// 步骤 03','sct-03':'类别规范化','scp-03':'检测到"Multiple Locale"(单数)与"Multiple Locales"(正确)。已应用修正。使用Nominatim对69个唯一地面观测站进行自动地理编码。',
+    'scn-04':'// 步骤 04','sct-04':'探测方法','scp-04':'凌星(~74%)和径向速度(~19%)主导。1992–2023年时间分析揭示了开普勒在2009年的转折点。2014年和2016年的大型公告呈现为峰值。',
+    'scn-05':'// 步骤 05','sct-05':'设施与地理','scp-05':'开普勒：2,662颗行星(48%)。拉西拉以276颗领先地面。使用geopy+Nominatim的交互地图。9个坐标近似的观测站手动补全。',
+    'scn-06':'// 步骤 06','sct-06':'地球相似指数','scp-06':'整合PHL-UPR数据集(exoplanetshab.csv)。清洗"(N)"和空格。按名称交叉匹配。分析ESI与半径、质量和通量的关系。Teegarden\'s Star b = 最高ESI(0.95)。Kepler-452b因恒星温度相似而突出。',
+    'scn-07':'// 步骤 07','sct-07':'银河位置','scp-07':'使用astropy SkyCoord将FK5转换为银河坐标。用matplotlib绘制Aitoff投影。开普勒的十字形印记清晰可见。距离分布显示<1,000 pc的偏差。',
+    'scn-08':'// 步骤 08','sct-08':'趣味发现与结论','scp-08':'记录了四个意外发现。分析流程已完成。包含偏差、局限性和参考文献的方法透明度。',
+    'sct-conc1':'凌星主导','scp-conc1':'当行星经过恒星前方时的亮度变化是最高效的技术。开普勒和TESS从太空利用这一技术取得了非凡成果。',
+    'sct-conc2':'开普勒改变了一切','scp-conc2':'2009年开普勒的发射改变了这一领域。曾主导90年代的径向速度法被完全取代。',
+    'sct-conc3':'Teegarden b领导ESI','scp-conc3':'以0.95的地球相似度，是已计算ESI中最接近地球的系外行星。有足够数据后TOI-700 e可能超越它。',
+    'sct-conc4':'开普勒签署天空','scp-conc4':'开普勒的十字形视场可在银河地图中直接看到。技术定义了我们探索宇宙的哪个部分。',
+    'conc-chip':'结论',
+    'conc-sub':'每颗系外行星都是工程、物理和人类毅力的故事。有些很有希望。没有一颗与地球相同。至少现在还没有。',
+    'conc-back':'返回顶部',
+    'act-datasources':'数据来源',
+    'acb-datasources':'<b>主要数据：</b>NASA系外行星档案(加州理工，NASA合同)。<br>文件：<code>PS_2023.08.02_06.28.52.csv</code> — 截至2023年10月2日5,523颗系外行星。<br><br><b>ESI数据：</b>波多黎各大学阿雷西博行星宜居性实验室(PHL) — <code>exoplanetshab.csv</code><br><b>地理编码：</b><code>geopy</code>使用Nominatim服务(OpenStreetMap)。',
+    'act-variables':'分析变量(18个)',
+    'acb-variables':'<b>ID：</b><code>pl_name</code> · <code>sy_snum</code> · <code>sy_pnum</code> · <code>sy_mnum</code><br><b>发现：</b><code>discoverymethod</code> · <code>disc_year</code> · <code>disc_facility</code> · <code>disc_locale</code><br><b>物理：</b><code>pl_orbper</code> · <code>pl_bmasse</code> · <code>pl_rade</code> · <code>pl_dens</code> · <code>pl_eqt</code> · <code>pl_insol</code> · <code>st_teff</code><br><b>位置：</b><code>rastr</code> · <code>decstr</code> · <code>sy_dist</code>',
+    'act-cleaning':'数据清洗',
+    'acb-cleaning':'• 使用<code>missingno</code>进行空值分析<br>• 规范化："Multiple Locale" → "Multiple Locales"<br>• 使用Nominatim自动地理编码<br>• 手动补全9个观测站<br>• 将纬度/经度转换为<code>float</code><br>• 清洗ESI名称中的<code>(N)</code>字符和空格',
+    'act-stack':'技术栈',
+    'acb-stack':'<b>环境：</b>Google Colab (Python 3)<br><code>pandas</code> · <code>plotly.express</code> · <code>matplotlib</code> · <code>seaborn</code><br><code>astropy</code> (SkyCoord, FK5→银河转换)<br><code>geopy</code> (Nominatim) · <code>missingno</code>',
+    'act-biases':'偏差与局限性',
+    'acb-biases':'• <b>凌星偏差：</b>更好地探测短轨道大行星。<br>• <b>距离偏差：</b>几乎所有行星在1,000 pc以内。<br>• <b>ESI不完整：</b>只有约57颗行星分配了ESI。<br>• <b>地理编码：</b>9个观测站坐标近似。',
+    'act-refs':'参考文献',
+    'acb-refs':'(1) <a href="https://exoplanetarchive.ipac.caltech.edu/" target="_blank">NASA系外行星档案</a><br>(2) <a href="https://exoplanets.nasa.gov/faq/31/" target="_blank">NASA — 什么是凌星？</a><br>(3) <a href="https://www.cfa.harvard.edu/facilities-technology/telescopes-instruments/keplerk2" target="_blank">哈佛CfA — 开普勒/K2</a><br>(4) <a href="https://www.eso.org/public/spain/teles-instr/lasilla/" target="_blank">ESO — 拉西拉天文台</a><br>(5) <a href="https://github.com/geopy/geopy" target="_blank">geopy</a><br>(6) <a href="https://skyandtelescope.org/astronomy-news/first-discoveries-pro-am-exoplanet-survey/" target="_blank">Sky &amp; Telescope — Benni &amp; Burdanov</a><br>(7) <a href="https://phl.upr.edu/projects/earth-similarity-index-esi" target="_blank">PHL-UPR — ESI</a>',
+    'code-show':'查看Python代码','code-hide':'隐藏代码'
   },
   en:{
     'hero-stat':'NASA Exoplanet Archive · October 2023 · 5,523 records',
@@ -770,8 +954,93 @@ const TEXTS={
     'sec-historia':'Analysis Narrative','h-historia':'The <span class="a">story</span> of the EDA',
     'sec-curiosidades':'Curiosities','h-curiosidades':'What the universe <span class="n">surprised</span> us by saying',
     'sec-metodologia':'Methodology','h-metodologia':'Behind the <span class="a">analysis</span>',
-    'conc-quote':'"The universe has <span style=\"color:var(--arc)\">5,523 reasons</span><br>to keep looking at the sky"',
-    'author-lbl':'Analysis by'
+    'conc-quote':'"The universe has <span style="color:var(--arc)">5,523 reasons</span><br>to keep looking at the sky"',
+    'author-lbl':'Analysis by',
+    'kl-confirmed':'Confirmed exoplanets','kn-confirmed':'// As of 02/10/2023',
+    'kl-transit':'Discovered by transit','kn-transit':'// Dominant method',
+    'kl-space':'Discovered from space','kn-space':'// Kepler leads by far',
+    'kl-lasilla':'Planets from La Silla Obs.','kn-lasilla':'// Ground leader — Atacama',
+    'kl-esi':'Max ESI — Teegarden b','kn-esi':'// Most Earth-like',
+    'kl-dist':'Distance of most planets','kn-dist':'// Solar parallax limit',
+    'sd-resumen':'Key metrics from the NASA Exoplanet Archive dataset (PS_2023.08.02). Each figure condenses decades of observation, detection algorithms and space missions.',
+    'sd-metodos':'Unable to directly see most exoplanets, astronomers use indirect effects: brightness changes, gravitational perturbations and microlensing.',
+    'sd-facilidades':'From the Massachusetts garden of an amateur astronomer to Kepler, which detected over 2,600 planets by itself. The equipment behind the catalogue.',
+    'sd-tiempo':'From 1992 to TESS. Each year has its story marked by missions, technologies and mega-announcements that redefined the catalogue in one go.',
+    'sd-espacio':'5,523 exoplanets distributed across the Milky Way. The Aitoff projection and distance histogram reveal where telescopes point, not where planets are.',
+    'sd-esi':'The ESI from the Planetary Habitability Laboratory (UPR Arecibo) scales physical similarity to Earth from 0 to 1. Only 57 exoplanets in the catalogue have an assigned ESI.',
+    'sd-historia':'The analysis followed a reproducible 8-step pipeline: loading, cleaning, detection, facilities, temporal evolution, galactic position, ESI and curiosities.',
+    'sd-curiosidades':'Unexpected findings that emerged during analysis. From an exoplanet discovered in a backyard to the most Earth-like candidate.',
+    'sd-metodologia':'Sources, tools, cleaning decisions, biases and limitations. Methodological transparency is as important as the results.',
+    'cct-meth':'Exoplanets by method','ccs-meth':'5,523 planets · NASA October 2023',
+    'cct-methline':'Historical evolution by method','ccs-methline':'1992–2023 — Paradigm shift',
+    'cct-loc':'Discovery location','ccs-loc':'Space vs Ground vs Multiple',
+    'cct-space':'Top space facilities','ccs-space':'Confirmed exoplanets by telescope',
+    'cct-ground':'Top ground observatories','ccs-ground':'Most prolific ground-based facilities',
+    'cct-map':'Ground observatory map','ccs-map':'Geolocated with geopy (Nominatim) — size proportional to discoveries',
+    'cct-time':'Exoplanets discovered per year','ccs-time':'Cumulative total overlaid',
+    'cct-aitoff':'Galactic map — Aitoff projection','ccs-aitoff':'Galactic coordinates (l, b) via astropy',
+    'cct-dist':'Distance distribution','ccs-dist':'In parsecs · red line = 1,000 pc',
+    'cct-esirad':'ESI: radius vs insolation flux','ccs-esirad':'Red lines = Earth values (1 R⊕, 1 S⊕)',
+    'cct-esimass':'ESI: mass vs insolation flux','ccs-esimass':'With and without ESI filter',
+    'cct-kepler':'Stellar habitability diagram','ccs-kepler':'Stellar effective temperature vs insolation flux',
+    'cb-all':'All','cb-transit':'Transit','cb-rv':'Rad. Velocity','cb-other':'Other',
+    'cb-bar':'Bar','cb-donut':'Donut',
+    'cb-esi-only':'ESI only','cb-esi-all':'All',
+    'note-transit':'<strong>Transit dominance:</strong> At ~74%, it reigns thanks to Kepler and TESS. It detects stellar dimming when a planet crosses in front of its star, revealing radius, period and atmospheric composition. Radial velocity, pioneer of the 90s, is second at ~19%.',
+    'note-kepler09':'<strong>Kepler reverses everything in 2009:</strong> Radial velocity dominated before Kepler. The mega-peaks of 2014 and 2016 are the mass announcements: 715 and 1,284 planets confirmed in a single release.',
+    'note-space-wins':'<strong>Space wins:</strong> Over 67% discovered from space. Without atmosphere, telescopes monitor stars with unmatched photometric precision.',
+    'note-kepler-leads':'<strong>Kepler leads:</strong> Kepler (2009–2018) monitored 150,000 stars. Renamed K2 after pointing failure. TESS has maintained the flow since 2018.',
+    'note-lasilla':'<strong>La Silla and Atacama:</strong> La Silla (Chile, 1969) leads with 276 confirmations. Paul Benni and Artem Burdanov (MIT) confirmed 2 exoplanets from the garden of a Massachusetts residence.',
+    'note-southhemi':'<strong>Southern hemisphere dominant:</strong> The best skies are concentrated in Chile (Atacama) and Hawaii. ESO and Pacific observatories lead the ground list.',
+    'note-twomoments':'<strong>Two historic moments:</strong> Feb 2014: 715 Kepler confirmations in one announcement. May 2016: 1,284 new ones in one day — the largest exoplanet announcement in history. Since 2019, TESS maintains more regular flows.',
+    'note-aitoff':'<strong>Kepler\'s signature:</strong> Kepler\'s cruciform field of view is unmistakable in the Aitoff projection. Exoplanets cluster towards the galactic plane.',
+    'note-dist':'<strong>Nearby universe:</strong> Most confirmed exoplanets are within 1,000 pc. Current instruments have limited reach.',
+    'note-esirad':'<strong>Nobody is perfect:</strong> No exoplanet simultaneously matches both Earth\'s radius and flux. TOI-700 d comes closest in radius; Teegarden\'s Star b in insolation flux.',
+    'note-esimass':'<strong>ESI bias:</strong> Showing all exoplanets reveals candidates without assigned ESI that approach Earth values. ESI is not calculated for very recent or deprioritised planets.',
+    'note-kepler-diag':'<strong>Kepler-452b stands out:</strong> Its host star has a temperature similar to the Sun (5,757 K) and similar flux. It is the most "solar" candidate in the catalogue.',
+    'mi-kepler':'Kepler launched (2009)','mi-715':'Mega-announcement 715 planets (2014)',
+    'mi-1284':'Record 1,284 planets (2016)','mi-tess':'TESS operational (2018)',
+    'esid-teegardenb':'+0.05 mass · +0.15 insolation flux · 2019',
+    'esid-toi700d':'+0.073 radius · −0.15 insolation flux · 2020',
+    'esid-kepler442b':'Radius 1.34 R⊕ · Flux 0.70 S⊕ · 2015',
+    'esid-toi700e':'Radius 0.953 R⊕ · Flux 1.27 S⊕ · 2023',
+    'esibl-teegarden':'ESI 0.95/1.0 — Catalogue maximum',
+    'esibl-toi700d':'ESI 0.87/1.0',
+    'esibl-kepler442b':'ESI 0.84/1.0',
+    'esibl-toi700e':'No official ESI — data too recent',
+    'esisc-noesi':'No ESI',
+    'cut-1':'Kepler: 2,662 of 5,523','cup-1':'A single telescope discovered nearly 48% of all confirmed exoplanets. Its cruciform field of view is recognisable on any galactic map.',
+    'cut-2':'La Silla leads on the ground','cup-2':'276 exoplanets confirmed from the Atacama desert. Paul Benni and Artem Burdanov (MIT) confirmed 2 exoplanets from the garden of a Massachusetts residence.',
+    'cut-3':'Teegarden b: ESI 0.95','cup-3':'The exoplanet with the highest known Earth similarity index. Orbits a red dwarf star just 12 light years away. Discovered in 2019.',
+    'cut-4':'TOI-700 e: very similar but no ESI','cup-4':'Discovered in 2023, radius 0.953 R⊕ and flux 1.27 S⊕. No official ESI because its data is too recent for the PHL analysis.',
+    'scn-01':'// STEP 01','sct-01':'Loading & initial exploration','scp-01':'Import of NASA CSV (5,523 rows × 30 cols). Inspection of types, nulls and basic distributions with pandas. Dataset includes discovery, physical and position variables.',
+    'scn-02':'// STEP 02','sct-02':'Null value cleaning','scp-02':'Visual analysis with missingno. pl_dens (~73% nulls) and pl_eqt (~55%) are the most incomplete variables. Decision: keep as NaN and filter per specific analysis.',
+    'scn-03':'// STEP 03','sct-03':'Category normalisation','scp-03':'Detection of "Multiple Locale" (singular) vs "Multiple Locales" (correct). Fix applied. Automatic geolocation with Nominatim for 69 unique ground observatories.',
+    'scn-04':'// STEP 04','sct-04':'Detection methods','scp-04':'Transit (~74%) and Radial Velocity (~19%) dominate. Temporal analysis 1992–2023 reveals Kepler\'s inflection point in 2009. Mega-announcements of 2014 and 2016 visible as peaks.',
+    'scn-05':'// STEP 05','sct-05':'Facilities & geography','scp-05':'Kepler: 2,662 planets (48%). La Silla leads on the ground with 276. Interactive map with geopy + Nominatim. 9 observatories with approximate coordinates completed manually.',
+    'scn-06':'// STEP 06','sct-06':'Earth Similarity Index','scp-06':'Integration of PHL-UPR dataset (exoplanetshab.csv). Cleaning of "(N)" and spaces. Cross-match by name. ESI analysis vs radius, mass and flux. Teegarden\'s Star b = max ESI (0.95). Kepler-452b stands out for stellar temperature similarity.',
+    'scn-07':'// STEP 07','sct-07':'Galactic position','scp-07':'FK5 → galactic conversion with astropy SkyCoord. Aitoff projection with matplotlib. Kepler\'s cruciform signature is visible. Distance distribution shows < 1,000 pc bias.',
+    'scn-08':'// STEP 08','sct-08':'Curiosities & conclusions','scp-08':'Four unexpected findings documented. Analysis pipeline completed. Methodological transparency with biases, limitations and references.',
+    'sct-conc1':'Transit dominates','scp-conc1':'Brightness changes when a planet crosses its star are the most productive technique. Kepler and TESS exploit it from space with extraordinary results.',
+    'sct-conc2':'Kepler changed everything','scp-conc2':'Kepler\'s 2009 launch transformed the field. Radial velocity that dominated the 90s was completely eclipsed.',
+    'sct-conc3':'Teegarden b leads ESI','scp-conc3':'With 0.95 Earth similarity it is the most Earth-like exoplanet with a calculated ESI. TOI-700 e could surpass it with enough data.',
+    'sct-conc4':'Kepler signs the sky','scp-conc4':'Kepler\'s cruciform field of view is directly visible on galactic maps. Technology defines which part of the universe we explore.',
+    'conc-chip':'Conclusion',
+    'conc-sub':'Each exoplanet is a story of engineering, physics and human perseverance. Some are promising. None is identical to Earth. Yet.',
+    'conc-back':'Back to top',
+    'act-datasources':'Data sources',
+    'acb-datasources':'<b>Main data:</b> NASA Exoplanet Archive (CalTech, under NASA contract).<br>File: <code>PS_2023.08.02_06.28.52.csv</code> — 5,523 exoplanets as of 02/10/2023.<br><br><b>ESI data:</b> Planetary Habitability Laboratory (PHL), UPR Arecibo — <code>exoplanetshab.csv</code><br><b>Geocoding:</b> <code>geopy</code> with Nominatim service (OpenStreetMap).',
+    'act-variables':'Analysed variables (18)',
+    'acb-variables':'<b>ID:</b> <code>pl_name</code> · <code>sy_snum</code> · <code>sy_pnum</code> · <code>sy_mnum</code><br><b>Discovery:</b> <code>discoverymethod</code> · <code>disc_year</code> · <code>disc_facility</code> · <code>disc_locale</code><br><b>Physics:</b> <code>pl_orbper</code> · <code>pl_bmasse</code> · <code>pl_rade</code> · <code>pl_dens</code> · <code>pl_eqt</code> · <code>pl_insol</code> · <code>st_teff</code><br><b>Position:</b> <code>rastr</code> · <code>decstr</code> · <code>sy_dist</code>',
+    'act-cleaning':'Data cleaning',
+    'acb-cleaning':'• Null analysis with <code>missingno</code><br>• Normalisation: "Multiple Locale" → "Multiple Locales"<br>• Automatic geolocation with Nominatim<br>• Manual completion of 9 observatories<br>• Latitude/longitude conversion to <code>float</code><br>• Cleaning of <code>(N)</code> characters and spaces in ESI names',
+    'act-stack':'Technology stack',
+    'acb-stack':'<b>Environment:</b> Google Colab (Python 3)<br><code>pandas</code> · <code>plotly.express</code> · <code>matplotlib</code> · <code>seaborn</code><br><code>astropy</code> (SkyCoord, FK5→galactic conversion)<br><code>geopy</code> (Nominatim) · <code>missingno</code>',
+    'act-biases':'Biases & limitations',
+    'acb-biases':'• <b>Transit bias:</b> Better detects large planets in short orbits.<br>• <b>Distance bias:</b> Almost all planets within 1,000 pc.<br>• <b>Incomplete ESI:</b> Only ~57 planets with assigned ESI.<br>• <b>Geocoding:</b> 9 observatories with approximate coordinates.',
+    'act-refs':'References',
+    'acb-refs':'(1) <a href="https://exoplanetarchive.ipac.caltech.edu/" target="_blank">NASA Exoplanet Archive</a><br>(2) <a href="https://exoplanets.nasa.gov/faq/31/" target="_blank">NASA — What is a transit?</a><br>(3) <a href="https://www.cfa.harvard.edu/facilities-technology/telescopes-instruments/keplerk2" target="_blank">CfA Harvard — Kepler/K2</a><br>(4) <a href="https://www.eso.org/public/spain/teles-instr/lasilla/" target="_blank">ESO — La Silla Observatory</a><br>(5) <a href="https://github.com/geopy/geopy" target="_blank">geopy</a><br>(6) <a href="https://skyandtelescope.org/astronomy-news/first-discoveries-pro-am-exoplanet-survey/" target="_blank">Sky &amp; Telescope — Benni &amp; Burdanov</a><br>(7) <a href="https://phl.upr.edu/projects/earth-similarity-index-esi" target="_blank">PHL-UPR — ESI</a>',
+    'code-show':'View Python code','code-hide':'Hide code'
   }
 };
 let curLang='es';
@@ -788,12 +1057,126 @@ function setLang(lang,btn){
   const htitle=document.querySelector('.htitle');
   if(htitle){htitle.childNodes[0].textContent=t['hero-title'];const l2=htitle.querySelector('.l2');if(l2)l2.textContent=t['hero-l2'];}
   const hsub=document.querySelector('.hsub');if(hsub)hsub.innerHTML=t['hero-sub'];
-  // chips & headings
+  // hero buttons
+  const btnExplore=document.querySelector('.btnP[href="#resumen"]');if(btnExplore)btnExplore.innerHTML='<i class="fas fa-chart-bar"></i> '+t['btn-explore'];
+  const btnMeth=document.querySelector('.btnS[href="#metodologia"]');if(btnMeth)btnMeth.innerHTML='<i class="fas fa-book"></i> '+t['btn-meth'];
+  // scroll label
+  const sind=document.querySelector('.sind');if(sind){const last=sind.lastChild;if(last&&last.nodeType===3)sind.lastChild.textContent=t['scroll-lbl'];}
+  // chips & headings + section descs
   const chipMap={'resumen':'sec-resumen','metodos':'sec-metodos','facilidades':'sec-facilidades','tiempo':'sec-tiempo','espacio':'sec-espacio','esi':'sec-esi','historia':'sec-historia','curiosidades':'sec-curiosidades','metodologia':'sec-metodologia'};
+  const sdMap={'resumen':'sd-resumen','metodos':'sd-metodos','facilidades':'sd-facilidades','tiempo':'sd-tiempo','espacio':'sd-espacio','esi':'sd-esi','historia':'sd-historia','curiosidades':'sd-curiosidades','metodologia':'sd-metodologia'};
   Object.keys(chipMap).forEach(id=>{
     const sec=document.getElementById(id);if(!sec)return;
     const chip=sec.querySelector('.chip');if(chip)chip.lastChild.textContent=' '+t[chipMap[id]].replace(/<[^>]+>/g,'');
     const h=sec.querySelector('.sh');if(h)h.innerHTML=t['h-'+id];
+    const sd=sec.querySelector('.sd');if(sd&&t[sdMap[id]])sd.textContent=t[sdMap[id]];
+  });
+  // KPI cards
+  const kcs=document.querySelectorAll('.kc');
+  const klMap=[['kl-confirmed','kn-confirmed'],['kl-transit','kn-transit'],['kl-space','kn-space'],['kl-lasilla','kn-lasilla'],['kl-esi','kn-esi'],['kl-dist','kn-dist']];
+  kcs.forEach((kc,i)=>{if(!klMap[i])return;const kl=kc.querySelector('.kl');const kn=kc.querySelector('.kn');if(kl)kl.textContent=t[klMap[i][0]];if(kn)kn.textContent=t[klMap[i][1]];});
+  // chart titles & subtitles
+  const ctMap=[
+    ['methChart','cct-meth','ccs-meth'],['methLineChart','cct-methline','ccs-methline'],
+    ['locChart','cct-loc','ccs-loc'],['spaceChart','cct-space','ccs-space'],
+    ['groundChart','cct-ground','ccs-ground'],['mapPlot','cct-map','ccs-map'],
+    ['timeChart','cct-time','ccs-time'],['aitoffChart','cct-aitoff','ccs-aitoff'],
+    ['distChart','cct-dist','ccs-dist'],['esiRadChart','cct-esirad','ccs-esirad'],
+    ['esiMassChart','cct-esimass','ccs-esimass'],['keplerChart','cct-kepler','ccs-kepler']
+  ];
+  ctMap.forEach(([id,tKey,sKey])=>{
+    const el=document.getElementById(id);if(!el)return;
+    const cc=el.closest('.cc');if(!cc)return;
+    const cct=cc.querySelector('.cct');const ccs=cc.querySelector('.ccs');
+    if(cct&&t[tKey])cct.textContent=t[tKey];if(ccs&&t[sKey])ccs.textContent=t[sKey];
+  });
+  // chart filter buttons
+  document.querySelectorAll('#mv1').forEach(b=>b.textContent=t['cb-bar']);
+  document.querySelectorAll('#mv2').forEach(b=>b.textContent=t['cb-donut']);
+  const mlB=document.getElementById('mlB');
+  if(mlB){const cbs=mlB.querySelectorAll('.cb');if(cbs[0])cbs[0].textContent=t['cb-all'];if(cbs[1])cbs[1].textContent=t['cb-transit'];if(cbs[2])cbs[2].textContent=t['cb-rv'];if(cbs[3])cbs[3].textContent=t['cb-other'];}
+  const esiMassCtrls=document.querySelector('#esiMassChart')?.closest('.cc')?.querySelector('.ctrls');
+  if(esiMassCtrls){const cbs=esiMassCtrls.querySelectorAll('.cb');if(cbs[0])cbs[0].textContent=t['cb-esi-only'];if(cbs[1])cbs[1].textContent=t['cb-esi-all'];}
+  // notes
+  const noteMap=[
+    ['methChart','note-transit'],['methLineChart','note-kepler09'],
+    ['locChart','note-space-wins'],['spaceChart','note-kepler-leads'],
+    ['groundChart','note-lasilla'],['mapPlot','note-southhemi'],
+    ['timeChart','note-twomoments'],['aitoffChart','note-aitoff'],
+    ['distChart','note-dist'],['esiRadChart','note-esirad'],
+    ['esiMassChart','note-esimass'],['keplerChart','note-kepler-diag']
+  ];
+  noteMap.forEach(([id,nKey])=>{
+    const el=document.getElementById(id);if(!el)return;
+    const cc=el.closest('.cc');if(!cc)return;
+    const note=cc.querySelector('.note');if(note&&t[nKey])note.innerHTML=t[nKey];
+  });
+  // timeline milestones
+  const mis=document.querySelectorAll('.mi');
+  const miKeys=['mi-kepler','mi-715','mi-1284','mi-tess'];
+  mis.forEach((mi,i)=>{if(miKeys[i])mi.textContent=t[miKeys[i]];});
+  // ESI cards
+  const esics=document.querySelectorAll('.esic');
+  const esicData=[
+    {id:'esid-teegardenb',bl:'esibl-teegarden'},
+    {id:'esid-toi700d',bl:'esibl-toi700d'},
+    {id:'esid-kepler442b',bl:'esibl-kepler442b'},
+    {id:'esid-toi700e',bl:'esibl-toi700e',sc:'esisc-noesi'}
+  ];
+  esics.forEach((card,i)=>{
+    const d=esicData[i];if(!d)return;
+    const esid=card.querySelector('.esid');if(esid)esid.textContent=t[d.id];
+    const esibl=card.querySelector('.esibl');if(esibl)esibl.textContent=t[d.bl];
+    if(d.sc){const sc=card.querySelector('.esiscore');if(sc&&sc.textContent.replace(/[\d.]/g,'').trim()===''){}else if(sc&&isNaN(parseFloat(sc.textContent)))sc.textContent=t[d.sc];}
+  });
+  // curiosidades
+  const cucards=document.querySelectorAll('.cucard');
+  const cuData=[['cut-1','cup-1'],['cut-2','cup-2'],['cut-3','cup-3'],['cut-4','cup-4']];
+  cucards.forEach((card,i)=>{
+    if(!cuData[i])return;
+    const cut=card.querySelector('.cut');const cup=card.querySelector('.cup');
+    if(cut)cut.textContent=t[cuData[i][0]];if(cup)cup.textContent=t[cuData[i][1]];
+  });
+  // historia steps
+  const scards=document.querySelectorAll('#historia .scard');
+  const scData=[
+    ['scn-01','sct-01','scp-01'],['scn-02','sct-02','scp-02'],['scn-03','sct-03','scp-03'],
+    ['scn-04','sct-04','scp-04'],['scn-05','sct-05','scp-05'],['scn-06','sct-06','scp-06'],
+    ['scn-07','sct-07','scp-07'],['scn-08','sct-08','scp-08']
+  ];
+  scards.forEach((card,i)=>{
+    if(!scData[i])return;
+    const scn=card.querySelector('.scn');const sct=card.querySelector('.sct');const scp=card.querySelector('.scp');
+    if(scn)scn.textContent=t[scData[i][0]];if(sct)sct.textContent=t[scData[i][1]];if(scp)scp.textContent=t[scData[i][2]];
+  });
+  // conclusion section
+  const concChip=document.querySelector('#conc .chip');if(concChip)concChip.innerHTML='<i class="fas fa-flag-checkered"></i> '+t['conc-chip'];
+  const concSub=document.querySelector('#conc > p');if(concSub)concSub.textContent=t['conc-sub'];
+  const concBack=document.querySelector('#conc .btnP');if(concBack)concBack.innerHTML='<i class="fas fa-arrow-up"></i> '+t['conc-back'];
+  // conclusion summary cards
+  const concCards=document.querySelectorAll('#conc .scard');
+  const concData=[['sct-conc1','scp-conc1'],['sct-conc2','scp-conc2'],['sct-conc3','scp-conc3'],['sct-conc4','scp-conc4']];
+  concCards.forEach((card,i)=>{
+    if(!concData[i])return;
+    const sct=card.querySelector('.sct');const scp=card.querySelector('.scp');
+    if(sct)sct.textContent=t[concData[i][0]];if(scp)scp.textContent=t[concData[i][1]];
+  });
+  // metodologia accordions
+  const acs=document.querySelectorAll('.acg .ac');
+  const acData=[
+    ['act-datasources','acb-datasources'],['act-variables','acb-variables'],
+    ['act-cleaning','acb-cleaning'],['act-stack','acb-stack'],
+    ['act-biases','acb-biases'],['act-refs','acb-refs']
+  ];
+  acs.forEach((ac,i)=>{
+    if(!acData[i])return;
+    const act=ac.querySelector('.act2');const acb=ac.querySelector('.acb');
+    if(act)act.textContent=t[acData[i][0]];if(acb)acb.innerHTML=t[acData[i][1]];
+  });
+  // code toggle buttons
+  document.querySelectorAll('.ctbtn').forEach(btn=>{
+    const isOpen=document.getElementById('cblock-'+btn.id.replace('ctbtn-',''))?.classList.contains('show');
+    btn.innerHTML=(isOpen?'<i class="fas fa-eye-slash"></i> ':' <i class="fas fa-code"></i> ')+(isOpen?t['code-hide']:t['code-show']);
   });
   const cq=document.querySelector('.conc-quote-inner');if(cq)cq.innerHTML=t['conc-quote'];
   const albl=document.querySelector('.albl');if(albl)albl.textContent=t['author-lbl'];
@@ -892,7 +1275,7 @@ function toggleCode(chartId){
   if(!block)return;
   const isOpen=block.classList.contains('show');
   block.classList.toggle('show',!isOpen);
-  if(btn)btn.innerHTML=isOpen?'<i class="fas fa-code"></i> Ver código Python':'<i class="fas fa-eye-slash"></i> Ocultar código';
+  const tc=TEXTS[curLang];if(btn)btn.innerHTML=isOpen?'<i class="fas fa-code"></i> '+tc['code-show']:'<i class="fas fa-eye-slash"></i> '+tc['code-hide'];
 }
 
 function addCodeToggles(){
@@ -902,7 +1285,7 @@ function addCodeToggles(){
     if(!el||!CODES[id])return;
     const wrap=document.createElement('div');
     wrap.className='code-wrap';
-    wrap.innerHTML=`<button class="ctbtn" id="ctbtn-${id}" onclick="toggleCode('${id}')"><i class="fas fa-code"></i> Ver código Python</button><div class="cblock" id="cblock-${id}"><pre>${CODES[id]}</pre></div>`;
+    wrap.innerHTML=`<button class="ctbtn" id="ctbtn-${id}" onclick="toggleCode('${id}')"><i class="fas fa-code"></i> ${TEXTS[curLang]['code-show']}</button><div class="cblock" id="cblock-${id}"><pre>${CODES[id]}</pre></div>`;
     el.parentNode.insertBefore(wrap,el.nextSibling);
   });
 }
