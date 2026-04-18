@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdn.plot.ly/plotly-2.29.1.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
 :root{
   --void:#000508;--deep:#020c18;--mid:#040f20;
@@ -108,7 +109,7 @@ main{position:relative;z-index:1;padding-top:62px;}
 .btnS{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--tx1);padding:10px 22px;border-radius:3px;font-family:var(--fM);font-weight:400;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid var(--rim2);cursor:pointer;transition:all .25s;}
 .btnS:hover{border-color:rgba(0,212,255,.22);background:rgba(0,212,255,.04);transform:translateY(-2px);}
 .sind{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:7px;color:var(--tx3);font-family:var(--fM);font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;animation:fI .8s 1.2s both;}
-.smouse{width:19px;height:31px;border:1px solid rgba(255,255,255,.09);border-radius:9px;display:flex;align-items:flex-start;justify-content:center;padding-top:5px;}
+.smouse{width:19px;height:31px;border:1px solid rgba(255,255,255,.09);border-radius:9px;display:flex;align-items:flex-start;justify-content:center}
 .smouse::after{content:'';width:2px;height:6px;background:var(--arc);border-radius:1px;animation:sP 2.2s ease infinite;}
 @keyframes sP{0%,100%{transform:translateY(0);opacity:1;}60%{transform:translateY(9px);opacity:.1;}}
 
@@ -233,6 +234,10 @@ footer a{color:var(--arc);text-decoration:none;}
 .cblock.show{display:block;}
 .cblock pre{font-family:var(--fM);font-size:.72rem;line-height:1.72;color:#c4b5fd;white-space:pre-wrap;word-break:break-all;}
 .kw{color:#f72585;}.fn{color:#00d4ff;}.st{color:#ffd60a;}.cm{color:#5a7a9a;font-style:italic;}.nb{color:#06d6a0;}
+/* ── PLANET 3D ── */
+.planet-wrap{margin-top:1.1rem;border-radius:10px;overflow:hidden;position:relative;background:#000;}
+.planet-wrap canvas{display:block;width:100%!important;height:200px!important;}
+.planet-label{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);font-family:var(--fM);font-size:.48rem;letter-spacing:.14em;color:rgba(255,255,255,.3);text-transform:uppercase;white-space:nowrap;pointer-events:none;text-shadow:0 0 8px rgba(0,0,0,.8);}
 /* ── AUTHOR ── */
 .author-bar{text-align:center;padding:2rem 2rem 2.5rem;border-top:1px solid var(--rim2);max-width:1260px;margin:0 auto;}
 .author-bar .albl{font-family:var(--fM);font-size:.6rem;color:var(--tx3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem;}
@@ -373,10 +378,10 @@ footer a{color:var(--arc);text-decoration:none;}
   <h2 class="sh">¿Hay otro <span class="l">planeta Tierra</span>?</h2>
   <p class="sd">El ESI del Laboratorio de Habitabilidad Planetaria (UPR Arecibo) escala de 0 a 1 el parecido físico con la Tierra. Solo 57 exoplanetas del catálogo tienen ESI asignado.</p>
   <div class="esig">
-    <div class="esic" style="--e1:var(--lif);--e2:var(--arc)"><div class="esiscore" style="color:var(--lif)">0.95</div><div class="esin">Teegarden's Star b</div><div class="esid">+0.05 masa · +0.15 flujo insolación · 2019</div><div class="esibw"><div class="esibtr"><div class="esibf" style="background:var(--lif)" data-w="95%"></div></div><div class="esibl">ESI 0.95/1.0 — Máximo del catálogo</div></div></div>
-    <div class="esic" style="--e1:var(--arc);--e2:var(--star)"><div class="esiscore" style="color:var(--arc)">0.87</div><div class="esin">TOI-700 d</div><div class="esid">+0.073 radio · −0.15 flujo insolación · 2020</div><div class="esibw"><div class="esibtr"><div class="esibf" style="background:var(--arc)" data-w="87%"></div></div><div class="esibl">ESI 0.87/1.0</div></div></div>
-    <div class="esic" style="--e1:var(--star);--e2:var(--sol)"><div class="esiscore" style="color:var(--star)">0.84</div><div class="esin">Kepler-442 b</div><div class="esid">Radio 1.34 R⊕ · Flujo 0.70 S⊕ · 2015</div><div class="esibw"><div class="esibtr"><div class="esibf" style="background:var(--star)" data-w="84%"></div></div><div class="esibl">ESI 0.84/1.0</div></div></div>
-    <div class="esic" style="--e1:var(--sol);--e2:var(--neon)"><div class="esiscore" style="color:var(--sol)">Sin ESI</div><div class="esin">TOI-700 e</div><div class="esid">Radio 0.953 R⊕ · Flujo 1.27 S⊕ · 2023</div><div class="esibw"><div class="esibtr"><div class="esibf" style="background:var(--sol)" data-w="80%"></div></div><div class="esibl">Sin ESI oficial — datos muy recientes</div></div></div>
+    <div class="esic" style="--e1:var(--lif);--e2:var(--arc)"><div class="esiscore" style="color:var(--lif)">0.95</div><div class="esin">Teegarden's Star b</div><div class="esid">+0.05 masa · +0.15 flujo insolación · 2019</div><div class="esibw"><div class="esibtr"><div class="esibf" style="background:var(--lif)" data-w="95%"></div></div><div class="esibl">ESI 0.95/1.0 — Máximo del catálogo</div></div><div class="planet-wrap"><canvas id="planet-teegarden"></canvas><span class="planet-label">Teegarden's Star b · ESI 0.95 · 12.5 al · Enana M</span></div></div>
+    <div class="esic" style="--e1:var(--arc);--e2:var(--star)"><div class="esiscore" style="color:var(--arc)">0.87</div><div class="esin">TOI-700 d</div><div class="esid">+0.073 radio · −0.15 flujo insolación · 2020</div><div class="esibw"><div class="esibtr"><div class="esibf" style="background:var(--arc)" data-w="87%"></div></div><div class="esibl">ESI 0.87/1.0</div></div><div class="planet-wrap"><canvas id="planet-toi700d"></canvas><span class="planet-label">TOI-700 d · ESI 0.87 · 101.4 al · Mundo Océano</span></div></div>
+    <div class="esic" style="--e1:var(--star);--e2:var(--sol)"><div class="esiscore" style="color:var(--star)">0.84</div><div class="esin">Kepler-442 b</div><div class="esid">Radio 1.34 R⊕ · Flujo 0.70 S⊕ · 2015</div><div class="esibw"><div class="esibtr"><div class="esibf" style="background:var(--star)" data-w="84%"></div></div><div class="esibl">ESI 0.84/1.0</div></div><div class="planet-wrap"><canvas id="planet-kepler442"></canvas><span class="planet-label">Kepler-442 b · ESI 0.84 · 1206 al · Super-Tierra</span></div></div>
+    <div class="esic" style="--e1:var(--sol);--e2:var(--neon)"><div class="esiscore" style="color:var(--sol)">Sin ESI</div><div class="esin">TOI-700 e</div><div class="esid">Radio 0.953 R⊕ · Flujo 1.27 S⊕ · 2023</div><div class="esibw"><div class="esibtr"><div class="esibf" style="background:var(--sol)" data-w="80%"></div></div><div class="esibl">Sin ESI oficial — datos muy recientes</div></div><div class="planet-wrap"><canvas id="planet-toi700e"></canvas><span class="planet-label">TOI-700 e · ~ESI 0.80 est. · 101.4 al · Mundo Rocoso</span></div></div>
   </div>
   <div class="two">
     <div class="cc" style="margin-top:1.1rem"><div class="cch"><div><div class="cct">ESI: radio vs flujo de insolación</div><div class="ccs">Líneas rojas = valores de la Tierra (1 R⊕, 1 S⊕)</div></div></div><div id="esiRadChart" class="pch" style="min-height:330px"></div><div class="note l"><strong>Nadie es perfecto:</strong> Ningún exoplaneta coincide simultáneamente con radio y flujo terrestres. TOI-700 d se acerca más en radio; Teegarden's Star b lo hace en flujo de insolación.</div></div>
@@ -1290,6 +1295,354 @@ function addCodeToggles(){
   });
 }
 addCodeToggles();
+</script>
+<!-- ═══ 3D EXOPLANET RENDERERS — GLSL Shader Edition ═══ -->
+<script id="vs-planet" type="x-shader/x-vertex">
+varying vec3 vPos;
+varying vec3 vNorm;
+varying vec2 vUv;
+void main(){
+  vPos = position;
+  vNorm = normalize(normalMatrix * normal);
+  vUv = uv;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+}
+</script>
+
+<script id="fs-planet" type="x-shader/x-fragment">
+varying vec3 vPos;
+varying vec3 vNorm;
+varying vec2 vUv;
+
+uniform float uSeed;
+uniform float uOcean;      // ocean threshold 0-1
+uniform vec3  uDeep;       // deep ocean
+uniform vec3  uShallow;    // shallow ocean
+uniform vec3  uCoast;      // beach/coast
+uniform vec3  uLow;        // lowland
+uniform vec3  uMid;        // midland
+uniform vec3  uHigh;       // highland/rock
+uniform vec3  uSnow;       // snow/ice
+uniform vec3  uLightCol;   // star color
+uniform float uLightInt;
+uniform float uIceCap;     // polar ice cap size
+
+// ── Gradient noise ──
+vec3 hash3(vec3 p){
+  p=vec3(dot(p,vec3(127.1,311.7,74.7)),
+         dot(p,vec3(269.5,183.3,246.1)),
+         dot(p,vec3(113.5,271.9,124.6)));
+  return -1.0+2.0*fract(sin(p)*43758.5453123);
+}
+float gnoise(vec3 p){
+  vec3 i=floor(p),f=fract(p),u=f*f*(3.0-2.0*f);
+  return mix(mix(mix(dot(hash3(i+vec3(0,0,0)),f-vec3(0,0,0)),
+                     dot(hash3(i+vec3(1,0,0)),f-vec3(1,0,0)),u.x),
+                 mix(dot(hash3(i+vec3(0,1,0)),f-vec3(0,1,0)),
+                     dot(hash3(i+vec3(1,1,0)),f-vec3(1,1,0)),u.x),u.y),
+             mix(mix(dot(hash3(i+vec3(0,0,1)),f-vec3(0,0,1)),
+                     dot(hash3(i+vec3(1,0,1)),f-vec3(1,0,1)),u.x),
+                 mix(dot(hash3(i+vec3(0,1,1)),f-vec3(0,1,1)),
+                     dot(hash3(i+vec3(1,1,1)),f-vec3(1,1,1)),u.x),u.y),u.z);
+}
+
+// ── Fractional Brownian Motion (8 octaves) ──
+float fbm(vec3 p){
+  float v=0.0,a=0.5,f=1.0;
+  vec3 s=vec3(uSeed*0.13+1.7,uSeed*0.07+0.3,uSeed*0.11+0.9);
+  for(int i=0;i<8;i++){
+    v+=a*gnoise(p*f+s);
+    a*=0.48; f*=2.1;
+  }
+  return v;
+}
+
+// ── Domain-warped terrain (realistic crumpling) ──
+float terrain(vec3 p){
+  float scale=1.8;
+  vec3 q=p*scale;
+  vec3 warp=vec3(fbm(q+vec3(0.0,0.0,0.0)),
+                 fbm(q+vec3(5.2,1.3,2.1)),
+                 fbm(q+vec3(1.7,9.2,3.6)));
+  return fbm(q + 0.7*warp)*0.5+0.5; // 0-1
+}
+
+vec3 colorRamp(float h){
+  if(h<uOcean*0.55) return uDeep;
+  if(h<uOcean*0.82){ float t=(h-uOcean*0.55)/(uOcean*0.27); return mix(uDeep,uShallow,smoothstep(0.,1.,t));}
+  if(h<uOcean)      { float t=(h-uOcean*0.82)/(uOcean*0.18); return mix(uShallow,uCoast,smoothstep(0.,1.,t));}
+  if(h<uOcean+0.10) { float t=(h-uOcean)/0.10;                return mix(uCoast,uLow,smoothstep(0.,1.,t));}
+  if(h<uOcean+0.28) { float t=(h-uOcean-0.10)/0.18;           return mix(uLow,uMid,smoothstep(0.,1.,t));}
+  if(h<uOcean+0.48) { float t=(h-uOcean-0.28)/0.20;           return mix(uMid,uHigh,smoothstep(0.,1.,t));}
+  float t=clamp((h-uOcean-0.48)/0.15,0.,1.);
+  return mix(uHigh,uSnow,smoothstep(0.,1.,t));
+}
+
+void main(){
+  vec3 p=normalize(vPos);  // sphere surface
+  float h=terrain(p);
+
+  // polar ice caps
+  float lat=abs(p.y);
+  float ice=smoothstep(uIceCap-0.08,uIceCap+0.04,lat);
+  
+  vec3 col=colorRamp(h);
+  col=mix(col,uSnow,ice);
+
+  // Lighting
+  vec3 lightDir=normalize(vec3(3.0,1.5,2.0));
+  float diff=max(dot(vNorm,lightDir),0.0);
+  float spec=0.0;
+  if(h<uOcean){ // ocean specular
+    vec3 viewDir=normalize(vec3(0,0,1));
+    vec3 halfDir=normalize(lightDir+viewDir);
+    spec=pow(max(dot(vNorm,halfDir),0.0),64.0)*0.35;
+  }
+  float ao=mix(0.85,1.0,smoothstep(0.0,0.3,h-uOcean)); // fake AO
+  col=col*(0.12+0.88*diff*ao)*uLightCol*uLightInt + spec*uLightCol;
+
+  gl_FragColor=vec4(col,1.0);
+}
+</script>
+
+<script id="fs-cloud" type="x-shader/x-fragment">
+varying vec3 vPos;
+varying vec3 vNorm;
+varying vec2 vUv;
+uniform float uSeed;
+uniform float uTime;
+uniform vec3  uLightCol;
+uniform float uLightInt;
+
+vec3 hash3(vec3 p){
+  p=vec3(dot(p,vec3(127.1,311.7,74.7)),dot(p,vec3(269.5,183.3,246.1)),dot(p,vec3(113.5,271.9,124.6)));
+  return -1.0+2.0*fract(sin(p)*43758.5453123);
+}
+float gnoise(vec3 p){
+  vec3 i=floor(p),f=fract(p),u=f*f*(3.0-2.0*f);
+  return mix(mix(mix(dot(hash3(i+vec3(0,0,0)),f-vec3(0,0,0)),dot(hash3(i+vec3(1,0,0)),f-vec3(1,0,0)),u.x),
+                 mix(dot(hash3(i+vec3(0,1,0)),f-vec3(0,1,0)),dot(hash3(i+vec3(1,1,0)),f-vec3(1,1,0)),u.x),u.y),
+             mix(mix(dot(hash3(i+vec3(0,0,1)),f-vec3(0,0,1)),dot(hash3(i+vec3(1,0,1)),f-vec3(1,0,1)),u.x),
+                 mix(dot(hash3(i+vec3(0,1,1)),f-vec3(0,1,1)),dot(hash3(i+vec3(1,1,1)),f-vec3(1,1,1)),u.x),u.y),u.z);
+}
+float fbm(vec3 p){
+  float v=0.,a=0.5;
+  vec3 s=vec3(uSeed*0.19+3.1,uSeed*0.23+7.4,uSeed*0.17+2.2);
+  for(int i=0;i<5;i++){v+=a*gnoise(p+s);a*=0.5;p*=2.2;}
+  return v*0.5+0.5;
+}
+void main(){
+  vec3 p=normalize(vPos);
+  // drift by uTime
+  vec3 q=p+vec3(uTime*0.018,0.,0.);
+  float c=fbm(q*2.8);
+  float alpha=smoothstep(0.52,0.72,c)*0.82;
+
+  vec3 lightDir=normalize(vec3(3.,1.5,2.));
+  float diff=max(dot(vNorm,lightDir),0.)*uLightInt;
+  vec3 col=vec3(0.92,0.95,1.0)*uLightCol*(0.3+0.7*diff);
+
+  gl_FragColor=vec4(col,alpha);
+}
+</script>
+
+<script id="fs-atmo" type="x-shader/x-fragment">
+varying vec3 vPos;
+varying vec3 vNorm;
+uniform vec3 uAtmoColor;
+uniform float uLightInt;
+void main(){
+  vec3 lightDir=normalize(vec3(3.,1.5,2.));
+  // Fresnel-style rim glow
+  vec3 viewDir=vec3(0.,0.,1.);
+  float rim=1.0-max(dot(vNorm,viewDir),0.0);
+  rim=pow(rim,2.8);
+  float lit=max(dot(vNorm,lightDir),0.0)*0.7+0.3;
+  gl_FragColor=vec4(uAtmoColor*uLightInt,rim*0.7*lit);
+}
+</script>
+
+<script>
+/* ══ 3D EXOPLANET RENDERER ══ */
+(function(){
+  function buildPlanets(){
+    if(typeof THREE==='undefined')return;
+
+    const vSrc=document.getElementById('vs-planet').textContent;
+    const fPlanet=document.getElementById('fs-planet').textContent;
+    const fCloud=document.getElementById('fs-cloud').textContent;
+    const fAtmo=document.getElementById('fs-atmo').textContent;
+
+    /* ── Planet configs ── */
+    const CFGS={
+      'planet-teegarden':{
+        // Earth-like, red dwarf illumination → warm amber-tinted blue-green world
+        seed:7.3,ocean:0.55,iceCap:0.82,
+        deep:   [0.04,0.12,0.32],
+        shallow:[0.09,0.28,0.52],
+        coast:  [0.55,0.50,0.30],
+        low:    [0.32,0.42,0.18],  // warm green
+        mid:    [0.38,0.34,0.18],  // amber-brown
+        high:   [0.52,0.42,0.30],  // rocky warm
+        snow:   [0.90,0.82,0.72],  // warm ice (red dwarf tint)
+        lightCol:[1.0,0.62,0.28],lightInt:1.55,
+        atmoCol:[0.95,0.52,0.18],
+      },
+      'planet-toi700d':{
+        // Ocean world — cold, deep blue, small landmasses, heavy ice caps
+        seed:23.1,ocean:0.72,iceCap:0.62,
+        deep:   [0.02,0.08,0.28],
+        shallow:[0.04,0.22,0.52],
+        coast:  [0.06,0.40,0.60],
+        low:    [0.12,0.35,0.25],  // teal-green land
+        mid:    [0.10,0.28,0.20],
+        high:   [0.22,0.28,0.30],
+        snow:   [0.88,0.94,1.00],  // bright white ice caps
+        lightCol:[1.0,0.90,0.78],lightInt:0.95,
+        atmoCol:[0.14,0.48,0.92],
+      },
+      'planet-kepler442':{
+        // Super-Earth, lush vegetation, K-type orange star (slightly cooler than Sun)
+        seed:51.7,ocean:0.48,iceCap:0.90,
+        deep:   [0.04,0.14,0.36],
+        shallow:[0.10,0.38,0.55],
+        coast:  [0.62,0.58,0.30],
+        low:    [0.15,0.40,0.10],  // dense jungle green
+        mid:    [0.10,0.30,0.08],  // dark forest
+        high:   [0.40,0.38,0.25],  // rock
+        snow:   [0.92,0.94,0.90],
+        lightCol:[1.0,0.80,0.55],lightInt:1.30,
+        atmoCol:[0.28,0.68,0.28],
+      },
+      'planet-toi700e':{
+        // Rocky desert world — thin atmosphere, Mars-like but with some ice
+        seed:83.4,ocean:0.28,iceCap:0.75,
+        deep:   [0.28,0.14,0.08],  // dark rock crevices (no real ocean)
+        shallow:[0.38,0.20,0.10],
+        coast:  [0.60,0.35,0.15],  // rusty regolith
+        low:    [0.68,0.40,0.18],  // red desert
+        mid:    [0.55,0.32,0.14],  // brown-orange
+        high:   [0.45,0.35,0.28],  // grey rock
+        snow:   [0.82,0.80,0.78],  // CO2 frost / thin ice
+        lightCol:[1.0,0.88,0.70],lightInt:1.10,
+        atmoCol:[0.80,0.42,0.18],
+      }
+    };
+
+    const scenes=[];
+    let startTime=performance.now();
+
+    Object.entries(CFGS).forEach(([id,cfg])=>{
+      const canvas=document.getElementById(id);
+      if(!canvas)return;
+      const wrap=canvas.parentElement;
+      const W=wrap.offsetWidth||240,H=200;
+      canvas.width=W; canvas.height=H;
+
+      const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+      renderer.setSize(W,H);
+      renderer.setClearColor(0x000000,1);
+
+      const scene=new THREE.Scene();
+      const camera=new THREE.PerspectiveCamera(42,W/H,0.1,100);
+      camera.position.z=2.85;
+
+      /* ── Stars ── */
+      const sg=new THREE.BufferGeometry();
+      const sp=[];
+      for(let i=0;i<600;i++){
+        const th=Math.random()*Math.PI*2,ph=Math.acos(2*Math.random()-1);
+        sp.push(Math.sin(ph)*Math.cos(th)*20,Math.sin(ph)*Math.sin(th)*20,Math.cos(ph)*20);
+      }
+      sg.setAttribute('position',new THREE.Float32BufferAttribute(sp,3));
+      scene.add(new THREE.Points(sg,new THREE.PointsMaterial({color:0xffffff,size:.05,transparent:true,opacity:.8})));
+
+      /* ── Uniforms ── */
+      const makeCfgUniforms=c=>({
+        uSeed:{value:c.seed},uOcean:{value:c.ocean},uIceCap:{value:c.iceCap},
+        uDeep:{value:new THREE.Color(...c.deep)},
+        uShallow:{value:new THREE.Color(...c.shallow)},
+        uCoast:{value:new THREE.Color(...c.coast)},
+        uLow:{value:new THREE.Color(...c.low)},
+        uMid:{value:new THREE.Color(...c.mid)},
+        uHigh:{value:new THREE.Color(...c.high)},
+        uSnow:{value:new THREE.Color(...c.snow)},
+        uLightCol:{value:new THREE.Color(...c.lightCol)},
+        uLightInt:{value:c.lightInt},
+      });
+
+      /* ── Planet sphere ── */
+      const geo=new THREE.SphereGeometry(.9,80,40);
+      const mat=new THREE.ShaderMaterial({
+        vertexShader:vSrc,fragmentShader:fPlanet,
+        uniforms:makeCfgUniforms(cfg),
+        side:THREE.FrontSide
+      });
+      const planet=new THREE.Mesh(geo,mat);
+      planet.rotation.x=0.20;
+      scene.add(planet);
+
+      /* ── Cloud layer ── */
+      const cloudUniforms={
+        uSeed:{value:cfg.seed+100},uTime:{value:0},
+        uLightCol:{value:new THREE.Color(...cfg.lightCol)},
+        uLightInt:{value:cfg.lightInt},
+      };
+      const cloudMat=new THREE.ShaderMaterial({
+        vertexShader:vSrc,fragmentShader:fCloud,
+        uniforms:cloudUniforms,
+        transparent:true,depthWrite:false,side:THREE.FrontSide
+      });
+      const cloudMesh=new THREE.Mesh(new THREE.SphereGeometry(.925,48,24),cloudMat);
+      cloudMesh.rotation.x=0.20;
+      scene.add(cloudMesh);
+
+      /* ── Atmosphere (back-facing Fresnel glow) ── */
+      const atmoMat=new THREE.ShaderMaterial({
+        vertexShader:vSrc,fragmentShader:fAtmo,
+        uniforms:{
+          uAtmoColor:{value:new THREE.Color(...(cfg.atmoCol||[0.3,0.6,1.0]))},
+          uLightInt:{value:cfg.lightInt}
+        },
+        transparent:true,depthWrite:false,side:THREE.BackSide,blending:THREE.AdditiveBlending
+      });
+      scene.add(new THREE.Mesh(new THREE.SphereGeometry(1.06,32,16),atmoMat));
+
+      scenes.push({renderer,scene,camera,planet,cloudMesh,cloudUniforms,
+                   speed:0.0018+Math.random()*0.0008});
+    });
+
+    /* ── Render loop ── */
+    function animate(){
+      requestAnimationFrame(animate);
+      const t=(performance.now()-startTime)*0.001;
+      scenes.forEach(({renderer,scene,camera,planet,cloudMesh,cloudUniforms,speed})=>{
+        planet.rotation.y+=speed;
+        cloudMesh.rotation.y+=speed*0.85;
+        cloudUniforms.uTime.value=t;
+        renderer.render(scene,camera);
+      });
+    }
+    animate();
+
+    /* ── Responsive ── */
+    if(window.ResizeObserver){
+      const ro=new ResizeObserver(()=>{
+        scenes.forEach(({renderer,camera})=>{
+          const c=renderer.domElement;
+          const W=c.parentElement.offsetWidth||240;
+          renderer.setSize(W,200);
+          camera.aspect=W/200;camera.updateProjectionMatrix();
+        });
+      });
+      document.querySelectorAll('.planet-wrap').forEach(el=>ro.observe(el));
+    }
+  }
+
+  if(document.readyState==='complete')buildPlanets();
+  else window.addEventListener('load',buildPlanets);
+})();
 </script>
 </body>
 </html>
